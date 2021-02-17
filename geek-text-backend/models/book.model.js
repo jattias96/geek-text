@@ -9,39 +9,41 @@ const bookSchema = new Schema({
         maxlength: 50
     },
 
+    // temporally a string to test post request without an author schema
     author: {
-        type: Schema.Types.ObjectId,
-        ref: 'Author',
+        //type: Schema.Types.ObjectId,
+       //ref: 'Author',
+        type: String,
         required: true
     },
 
-    genre: {
-        type: Schema.Types.ObjectId, 
+     
+    genre:{
+        type: Schema.Types.ObjectId,
         ref: 'Genre'
     },
 
-    sold: {
+    sold:{
         type: Number, 
         default: 0
     },
 
-    comments: {
+    comments:{
         type: [String],
         default: []
     },
     
-    price: {
+    price:{
         type: Number, 
         default: 0
     },
 
-    description: {
+    description:{
         type: String
     },
 
     cover:{
-        data: Buffer, 
-        contentType: String
+        type: String
     },
 
     releaseDate:{
@@ -74,6 +76,10 @@ const bookSchema = new Schema({
 
 });
 
+
+bookSchema.index({ 
+    title:'text' 
+})
 
 const Book = mongoose.model('Book', bookSchema);
 
