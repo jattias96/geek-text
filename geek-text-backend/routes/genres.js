@@ -11,8 +11,12 @@ router.route('/').get((req, res)=>{
 
 // Handle post request
 router.route('/add').post((req,res) => {
+    
+    const name = req.body.name;
 
-    const newGenre = new Genre(req.body)
+    const newGenre = new Genre({
+        name
+    })
 
     newGenre.save()
     .then(() => res.json('Genre added!'))
