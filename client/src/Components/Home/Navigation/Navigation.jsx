@@ -3,8 +3,13 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Logo from '../../../Assets/geek-text-logo.png'
 import './Navigation.css'
 import { Link } from 'react-router-dom'
+import {Avatar} from '@material-ui/core';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import {DropDownMenu} from '../UserDropDownMenu/DropDownMenu'
 
 export const Navigation = () => {
+    const token = localStorage.getItem('token') || false;
     return (
         <div className="nav">
             <div className=".nav-left">
@@ -20,9 +25,9 @@ export const Navigation = () => {
                 </div>
                 </Link>
                 <div className="nav-right-auth nav-link">
-                    <Link to="/auth" className="Router_Link">
+                    { token ? null : <Link to="/auth" className="Router_Link">
                         <h4 className="links">Sign-up/Sign-in</h4>
-                    </Link>
+                    </Link>}
                 </div>
                 <div className="nav-right-addBook nav-link">
                     <h4 className="links">Add New Book</h4>
@@ -32,6 +37,15 @@ export const Navigation = () => {
                         <ShoppingCartOutlinedIcon fontSize="small" />
                     </Link>
                 </div>
+                <div>
+                    {
+                        token ? <Popup trigger={<Avatar src = "" alt = "User Profile"/>} 
+                                    position="bottom right">
+                                    <DropDownMenu/>
+                                </Popup> 
+                    :null }
+                </div>
+                
             </div>
         </div>
     )
