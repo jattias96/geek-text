@@ -5,6 +5,8 @@ import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import {Navigation} from './Components/Home/Navigation/Navigation'
 import {SideBar} from './Components/Dashboard/SideBar/SideBar'
 import {DashboardHome} from './Components/Dashboard/DashboardHome'
+import {PersonalInfoManager} from './Components/Dashboard/PersonalInfoManager/PersonalInfoManager'
+import {LoginManager} from './Components/Dashboard/LoginManager/LoginManager'
 
 function App() {
   return (
@@ -15,6 +17,18 @@ function App() {
               <div className = "dashboard-divider">
                 <SideBar />{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
                 <DashboardHome/>
+              </div>
+          </Route>
+          <Route path = '/dashboard/update-login-details' exact = {true}>{/* After the user clicks the dashboard link, it opens the dashboard page */}
+              <div className = "dashboard-divider">
+                <SideBar />{/*Displays to the suer dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                <LoginManager/>
+              </div>
+          </Route>
+          <Route path = '/dashboard/update-info' exact = {true}>{/* After the user clicks the dashboard link, it opens the dashboard page */}
+              <div className = "dashboard-divider">
+                <SideBar />{/*Displays to the suer dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                <PersonalInfoManager />
               </div>
           </Route>
           <Route path = '/auth' exact = {true}>
