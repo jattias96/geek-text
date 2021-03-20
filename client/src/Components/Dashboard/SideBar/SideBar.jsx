@@ -49,7 +49,7 @@ export const SideBar = () => {
                     {
                         ! isShippingMenuOpened ? null : <div className = "shipping-menu">
                            
-                             <Link to = "/dashboard/add-new-credit-card"> 
+                             <Link to = "" className = "Router__link"> 
                                 <h4 className = "shipping-menu-options">- Add new Shipping Address</h4> 
                              </Link>
                            
