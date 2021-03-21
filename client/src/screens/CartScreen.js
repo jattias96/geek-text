@@ -91,18 +91,14 @@ const CartScreen = () => {
               :
               (
                 <div className="cartscreen__center">
-                  <h1>Your Shopping Cart Is Empty!</h1>
+                  <h1>Your Shopping Cart Is Empty.</h1>
                   <p></p>
-                  <p>Sign in to start shopping.</p>
-                  <Link to="/Auth" className="Router_Link">
-                    <div className="cart_button" >
-                      <p>Sign In</p>
-                    </div>
-                  </Link>
+                  <p>Add some books!</p>
+                 
                   <div></div>
                   <Link to="/listofbooks" className="Router_Link">
                     <div className="cart_button">
-                      <p>Continue Shopping</p>
+                      <p>Start Shopping</p>
                     </div>
                   </Link>
                 </div>)
