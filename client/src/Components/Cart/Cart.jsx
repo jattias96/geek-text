@@ -126,6 +126,7 @@ export default class Cart extends Component {
     render() {
         return (
             <div className="center">
+            
                 <h1>Your Shopping Cart Is Empty!</h1>
                 <p> </p>
                 <p>Sign in to start shopping.</p>
@@ -142,54 +143,57 @@ export default class Cart extends Component {
                 </Link>
                 {
                     <div className="card">
-                        <p>{this.state.books.map(function (book) {
+                        <marginging>{this.state.books.map(function (book) {
 
                             return <p>
                                 <div className="solid">
-                                    <div className="row.bottom">
+                                    <div className="my-left-aligned-books">
                                         <div className="row.start">
                                             <div className="card-body">
-                                                <div>
+                                                
                                                     <img
                                                         src={book.cover}
                                                         alt={book.title}
                                                         className="small"
-                                                    ></img>
-                                                </div>
-                                                <div className="smaller-font">
-                                                    <p>"{book.title}" </p>
+                                                        />
+                                                    <h6>"{book.title}" </h6>
                                                     <div className="author">
                                                         <p>by {book.author} </p>
                                                     </div>
                                                     <div className="price">
-                                                        <p>${book.price}</p>
+                                                        ${book.price}
                                                     </div>
-                                                    <div class="dropdown">
-                                                        <span> Qty: </span>
-                                                        <div class="dropdown-content">
-                                                            <div class="dropdown:hover">
-                                                                <button>1</button>
-                                                                <button>2</button>
-                                                                <button>3</button>
-                                                                <button>4</button>
-                                                                <button>5</button>
-                                                            </div>
+                                                    <div class="search_categories">
+                                                  
+                                                        <div class="select">
+                                                            
+                                                            <select name="search_categories" id="search_categories">
+                                                                <option value="1" selected="selected">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                          
+
                                 <hr />
                             </p>
                         })}
-                        </p>
-
-                        <h4> Subtotal ({this.state.books.reduce((a, c) => a + 1, 0)} items): $
-                {parseFloat(this.state.books.reduce((a, c) => a + c.price * 1, 0)).toFixed(2)}
-                        </h4>
-                    </div>}
+                        </marginging>
+                        <div className="my-right-aligned-text">
+                        Subtotal ({this.state.books.reduce((a, c) => a + 1, 0)} items):
+               <h3> ${parseFloat(this.state.books.reduce((a, c) => a + c.price * 1, 0)).toFixed(2)}</h3>
+          
+                        </div>
+                        
+                    </div>
+                    }
             </div>
         )
     }
