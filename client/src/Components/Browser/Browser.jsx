@@ -30,24 +30,7 @@ export default class Browser extends React.Component {
         })
     }
 
-    // ! NOT FUNCTIONAL
-    getAuthor() {
-        Axios.get(AUTHORS + this.state.books.author)
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        author: response.data
-                    })
-                }
-                else {
-                    console.log("No author")
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
+    
     //Get Books from db
     componentDidMount() {
 
@@ -97,11 +80,80 @@ export default class Browser extends React.Component {
         });
     }
 
+    sortByTitle(){
+        Axios.get(BOOKS + "getByTitle")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        books: response.data
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    sortByRating(){ 
+        Axios.get(BOOKS + "getByRating")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        books: response.data
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    sortByRD(){ // RD = Release Date
+        Axios.get(BOOKS + "getByRD")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        books: response.data
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    sortByAuthor(){ // name, alphabetical
+        Axios.get(BOOKS + "getByAuthor")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        books: response.data
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    
 
 render(){
     return(
 <div className="center">
-<h1>Currently viewing most popular books</h1>
+<h1>Find Books Below</h1>
 <div className="nav">
 
 <div className=".nav-left">
@@ -111,21 +163,28 @@ render(){
 
 <div className="nav-right">
     <div className="nav-right-booklist nav-link">
-    
-        <h4 className="links">method a</h4>
+     <button value = "sortByTitle" onClick={ () => this.sortByTitle()}>
+        <h4 className="links">Title</h4>
+        </button>
     </div>
 
     <div className="nav-right-auth nav-link">
-            <h4 className="links">method b</h4>
+    <button value = "sortByRating" onClick={() => this.sortByRating()}>
+            <h4 className="links">Rating</h4>
+            </button>
        
     </div>
 
     <div className="nav-right-addBook nav-link">
-        <h4 className="links">method c</h4>
+    <button value = "sortByRD" onClick={() => this.sortByRD()}>
+        <h4 className="links">Newest</h4>
+        </button>
     </div>
 
     <div className="nav-right-cart nav-link">
-        <h4 className = "links">method d</h4>
+    <button value = "sortByAuthor" onClick={() => this.sortByAuthor()}>
+        <h4 className = "links">Author</h4>
+        </button>
     </div>
 </div>
 </div>
@@ -147,7 +206,7 @@ render(){
                                                 <div className="smaller-font">
                                                     <p>"{book.title}" </p>
                                                     <div className="author">
-                                                        <p>by {book.author.name} </p>
+                                                        <p>by {book.authorName} </p>
                                                     </div>
                                                     <div className="price">
                                                         <p>${book.price}</p>

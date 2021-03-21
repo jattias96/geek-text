@@ -17,6 +17,12 @@ router.route('/getByTitle').get(async(req, res)=>{
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
+// Handle get request (Sort by authorName Alphabetical)
+router.route('/getByAuthor').get(async(req, res)=>{
+    await Book.find().sort({authorName:1}).limit(10) 
+    .then(books => res.json(books))
+    .catch(err => res.status(400).json('Error: ' + err));
+})
 // Handle get request (Sort by rating descending)
 router.route('/getByRating').get(async (req, res) => {
     await Book.find().sort({rating: -1}).limit(10)
