@@ -3,21 +3,32 @@ import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import Logo from '../../../Assets/geek-text-logo.png'
 import './Navigation.css'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 export const Navigation = () => {
+
+    // Get Number of items in Shopping Cart
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
+    const getCartCount = () => {
+        return cartItems.filter(({ saved }) => saved !== true)
+            .reduce((qty, item) => Number(item.qty) + qty, 0);
+    };
+
+
     return (
         <div className="nav">
-            <div className=".nav-left">
+            <div className="left">
                 <Link to="/" className="Router_Link">
-                    <img class="resize" src={Logo} alt="logo" />
-                    <h1 className="inlineheader">Geek-Text</h1>
+                    <img className="resize" src={Logo} alt="logo" />
+                    <h1 className="inlineheader">Geek Text</h1>
                 </Link>
             </div>
             <div className="nav-right">
-            <Link to="/" className="Router_Link">
-                <div className="nav-right-booklist nav-link">
-                    <h4 className="links">View Books</h4>
-                </div>
+                <Link to="/" className="Router_Link">
+                    <div className="nav-right-booklist nav-link">
+                        <h4 className="links">View Books</h4>
+                    </div>
                 </Link>
                 <div className="nav-right-auth nav-link">
                     <Link to="/auth" className="Router_Link">
@@ -25,10 +36,13 @@ export const Navigation = () => {
                     </Link>
                 </div>
                 <div className="nav-right-addBook nav-link">
-                    <h4 className="links">Add New Book</h4>
+                    <Link to="/listofbooks" className="Router_Link">
+                        <h4 className="links">Add New Book</h4>
+                    </Link>
                 </div>
                 <div className="nav-right-cart nav-link">
                     <Link to="/cart" className="Router_Link">
+                        <div className="cartlogo_badge">{getCartCount()}</div>
                         <ShoppingCartOutlinedIcon fontSize="small" />
                     </Link>
                 </div>

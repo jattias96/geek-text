@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -45,7 +46,12 @@ const userSchema = new mongoose.Schema({
   wishlist:{
     type:Array,
     default:[]
-  }
+  },
+  booksPurchased:{
+      type: [Schema.Types.ObjectId],
+      ref: 'Book',
+      default: []
+  },
 });
 
  export const user = mongoose.model('user',userSchema);

@@ -1,7 +1,8 @@
 import { Router } from 'express'
 import { Author } from '../models/authorModel.js'
-import expressAzyncHandler from 'express-async-handler';
+
 const router = Router();
+
 // Handle get request
 router.route('/').get((req, res)=>{
     Author.find()
@@ -13,9 +14,11 @@ router.route('/').get((req, res)=>{
 router.route('/add').post((req,res) => {
     
     const name = req.body.name;
+    const bio = req.body.bio;
 
     const newAuthor = new Author({
-        name
+        name,
+        bio
     })
 
     newAuthor.save()
@@ -23,16 +26,11 @@ router.route('/add').post((req,res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Handle get request for specific author
-router.get('/:id', 
-    expressAzyncHandler(async(req, res)=>{
-    const json_author = await Author.findById(req.params.id);
-    if (json_author){
-        res.send({json_author});
-    }
-    else{
-        res.status(404).send({message: 'Author Not Found'})
-    }
-}));
+// Get a specific author
+router.route('/:id').get(async(req, res)=>{
+    await Author.findById(req.params.id)
+    .then(author => res.json(author))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
 export default router;

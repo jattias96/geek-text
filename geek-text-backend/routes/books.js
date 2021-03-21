@@ -1,4 +1,3 @@
-import expressAzyncHandler from 'express-async-handler';
 import { Router } from 'express';
 import { Book } from '../models/bookModel.js';
 const router = Router();
@@ -16,6 +15,27 @@ router.route('/add').post((req,res) => {
     newBook.save()
     .then(() => res.json('Book added!'))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Get a specific book
+router.route('/:id').get(async(req, res)=>{
+    await Book.findById(req.params.id)
+    .then(book => res.json(book))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Increment count of books sold
+router.route('/purchase/:id').patch(async(req, res)=>{
+    try{
+        const _id = req.params.id;
+        const sold = req.body.sold;
+        const result = await Book.findByIdAndUpdate(_id,{
+            $inc:{sold: sold}
+        });
+        res.send(result);
+    } catch (error){
+        console.log(error.message);
+    }
 });
 
 export default router;

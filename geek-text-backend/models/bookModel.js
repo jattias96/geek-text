@@ -14,6 +14,11 @@ const bookSchema = new Schema({
        ref: 'Author',
     },
 
+    authorName: {
+        type: String, 
+        maxlength: 50
+     },
+
     genre:{
         type: Schema.Types.ObjectId,
         ref: 'Genre'

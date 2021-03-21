@@ -1,8 +1,12 @@
 import Auth from './Components/Auth/Auth'
 import {Home} from './Components/Home/Home'
-import Cart from './Components/Cart/Cart'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import {Navigation} from './Components/Home/Navigation/Navigation'
+
+import CartScreen from "./Screens/CartScreen";
+import BookScreen from "./Screens/BookScreen";
+import ListAllBooks from "./Screens/ListAllBooks";
+
 function App() {
   return (
     <Router >
@@ -15,8 +19,10 @@ function App() {
               <Home />
           </Route>
           <Route path = '/cart/:id?'>
-              <Cart/>
+              <CartScreen/>
           </Route>
+          <Route exact path='/book/:id' component={BookScreen} />
+          <Route exact path='/listofbooks' component={ListAllBooks} />
       </Switch>
     </Router>
   );
