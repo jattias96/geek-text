@@ -48,11 +48,11 @@ const BookScreen = ({ match, history }) => {
                 <div className="right__info">
                   <p>
                     Price:
-                <span>${parseFloat(book.price).toFixed(2)}</span>
+                    <span>${parseFloat(book.price).toFixed(2)}</span>
                   </p>
                   <p>
                     Qty:
-                <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                    <select value={qty} onChange={(e) => setQty(e.target.value)}>
                       {[...Array(10).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
@@ -63,7 +63,7 @@ const BookScreen = ({ match, history }) => {
                   <p>
                     <button type="info__button" onClick={addToCartHandler}>
                       Add to Cart
-                </button>
+                    </button>
                   </p>
                 </div>
               </div>

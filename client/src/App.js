@@ -3,9 +3,9 @@ import {Home} from './Components/Home/Home'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import {Navigation} from './Components/Home/Navigation/Navigation'
 
-// import CartScreen from "./screens/CartScreen";
-import BookScreen from "./screens/BookScreen";
-import ListAllBooks from "./screens/ListAllBooks";
+import CartScreen from "./Screens/CartScreen";
+import BookScreen from "./Screens/BookScreen";
+import ListAllBooks from "./Screens/ListAllBooks";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
               <Home />
           </Route>
           <Route path = '/cart/:id?'>
-              {/* <CartScreen/> */}
+              <CartScreen/>
           </Route>
           <Route exact path='/book/:id' component={BookScreen} />
           <Route exact path='/listofbooks' component={ListAllBooks} />
