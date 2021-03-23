@@ -14,14 +14,14 @@
   }
 
   .cartItem__author {
-    color:rgb(63, 64, 65);
+    color:rgb(98, 99, 100);
     font-size: 11px;
   }
 
   .cartItem__name:hover {
     color: #7A9EA7;
   }
-  
+
   .cartItem__select {
     padding: 10px 10px;
     position:inherit;
@@ -30,6 +30,12 @@
     width: auto;
     display: inline-block;
   }
+
+  .cartItem__select:hover {
+    border-color:  #7A9EA7;
+    border-width: 2px;
+  }
+  
   
   img.small {
     max-width: 5.5rem;
@@ -77,12 +83,9 @@
     color: rgb(63, 64, 65);
     background-color: transparent;
     cursor: pointer;
-    font-size: small;
-    width: fit-content;
-    height: fit-content;
+    font-size: 12px;
+    padding: 0%;
     border: none;
-    border-left: 0rem;
-    text-align: left;
   }
   
   .saveforlater_button:hover{
