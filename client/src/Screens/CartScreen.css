@@ -18,6 +18,7 @@
   border: 0.1rem #ddd solid;
   flex-wrap:wrap;
   display:flexbox;
+  padding: 1rem;
 }
 
 .cartscreen__info p {
@@ -29,10 +30,9 @@
   border: 0.1rem #ddd solid;
   flex-wrap:wrap;
   display:flexbox;
-  
-  margin-top: 4rem;
-  margin-left: 12rem;
-  margin-right: 12rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  padding: 1rem;
 }
   
 hr {

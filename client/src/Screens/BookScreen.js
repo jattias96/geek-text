@@ -9,6 +9,9 @@ const BookScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const bookDetails = useSelector((state) => state.getBookDetails);
+
+
+
   const { loading, error, book } = bookDetails;
 
   useEffect(() => {
@@ -23,8 +26,12 @@ const BookScreen = ({ match, history }) => {
     history.push(`/cart/` + match.params.id + "?qty=" + qty);
   };
 
+  const publisher = ((book || {}).publishingInfo || {}).publisher;
+  const isbn = ((book || {}).publishingInfo || {}).isbn;
+  const edition = ((book || {}).publishingInfo || {}).edition;
 
   return (
+    
     <div className="productscreen">
       {
         loading ? (
@@ -42,6 +49,11 @@ const BookScreen = ({ match, history }) => {
                   <div className="left__name"><p>{book.title}</p></div>
                   <p>By {book.authorName}</p>
                   <p>{book.description}</p>
+                  <p>Publisher: {publisher}</p>
+                  <p>ISBN: {isbn}</p>
+                  <p>Edition: {edition}</p>
+                  
+                  
                 </div>
               </div>
               <div className="productscreen__right">
