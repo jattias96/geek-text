@@ -21,6 +21,10 @@
   padding: 1rem;
 }
 
+.cartscreen__info button{
+  position:inherit;
+}
+
 .cartscreen__info p {
   padding: 8px;
   flex-wrap: wrap;
@@ -33,6 +37,10 @@
   margin-left: 10rem;
   margin-right: 10rem;
   padding: 1rem;
+}
+
+.cartscreen__info_saved button{
+  position:inherit;
 }
   
 hr {
