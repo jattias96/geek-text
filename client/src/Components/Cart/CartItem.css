@@ -1,0 +1,149 @@
+ .left {
+    text-align: left;
+    place-items:left;
+    float: left;
+  }
+
+  .cartItem__name {
+    text-align: left;
+    text-decoration: none;
+    color:rgb(63, 64, 65);
+    font-size: 14px;
+    font-weight: bold;
+    
+  }
+
+  .cartItem__author {
+    color:rgb(98, 99, 100);
+    font-size: 11px;
+  }
+
+  .cartItem__name:hover {
+    color: #7A9EA7;
+  }
+
+  .cartItem__select {
+    padding: 10px 10px;
+    position:inherit;
+    border-radius: 0%;
+    cursor: pointer;
+    width: auto;
+    display: inline-block;
+  }
+
+  .cartItem__select:hover {
+    border-color:  #7A9EA7;
+    border-width: 2px;
+  }
+  
+  
+  img.small {
+    max-width: 5.5rem;
+    min-width: 5.5rem;
+    width: 5.5rem;
+    min-height: 8rem;
+    height: 8.5rem;
+    width: 100%;
+    align-self: left;
+    justify-self: left;
+    margin-right:1rem;
+    margin-top: 0.5rem;
+    border-radius: 0%;
+  }
+
+  .cartItem__deleteBtn {
+    color:rgb(63, 64, 65);
+    background:none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+
+  }
+  .cartItem__deleteBtn:hover{
+    padding: none;
+    color:#7A9EA7;
+  }
+
+  .cartitem__price {
+    font-size: 1rem;
+    justify-content: right;
+    text-align: right;
+    justify-self: right;
+    justify-content: right;
+    float:right;
+    align-self:center;
+  }
+
+  .cart_button:hover{
+    background: #7A9EA7;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    transform: translateY(-3px);
+  }
+
+  .saveforlater_button {
+    color: rgb(63, 64, 65);
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 0%;
+    border: none;
+  }
+  
+  .saveforlater_button:hover{
+    color: #7A9EA7;
+  }
+
+.saveandremove{
+  margin-left: 0%;
+}
+
+.cartitem__price_saved{
+  font-size: 1rem;
+}
+
+.cartitem__cover_saved{
+   align-self:center;
+   text-align: center;
+}
+
+.rating{
+  color: #7A9EA7;
+}
+
+#grid_Cart {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 6fr 1fr 1.5fr;
+  gap: 18px;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+#grid_SavedForLater {
+  display: grid;
+  width:fit-content;
+  grid-template-columns: 1fr 6fr;
+  gap: 18px;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+}
+
+#cover_Column {
+  align-self: center;
+}
+
+#info_Column {
+  text-align: left;
+  align-self: center;
+
+}
+#qty_Column {
+  align-self: center;
+}
+
+#price_Column {
+  text-align: center;
+  align-self: center;
+}

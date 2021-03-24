@@ -48,3 +48,22 @@
     width: 50px;
     height: auto;
 }
+.cartlogo_badge {
+    min-width: 16px;
+    height: 16px;
+    top: 6px;
+    right: 24px;
+    font-size:10px;
+    color:#fff;
+    inline-size: auto;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0.2px;
+    border-radius: 50%;
+    background-color: #7A9EA7;
+    initial-letter:inherit;
+    position: absolute;
+    list-style-position:outside;
+    display:block
+}
