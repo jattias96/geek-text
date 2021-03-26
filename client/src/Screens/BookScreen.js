@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
+import { addToWishlist } from "../Redux/actions/wishlistActions";
 
 const BookScreen = ({ match, history }) => {
 
@@ -25,6 +26,14 @@ const BookScreen = ({ match, history }) => {
     //history.push(`/cart`);
     history.push(`/cart/` + match.params.id + "?qty=" + qty);
   };
+
+
+  const addToWishlistHandler = () => {
+    dispatch(addToWishlist(book._id));
+    history.push(`/wishlist/` + match.params.id);
+  };
+
+
 
   const publisher = ((book || {}).publishingInfo || {}).publisher;
   const isbn = ((book || {}).publishingInfo || {}).isbn;
@@ -75,6 +84,10 @@ const BookScreen = ({ match, history }) => {
                   <p>
                     <button type="info__button" onClick={addToCartHandler}>
                       Add to Cart
+                </button>
+                </p><p>
+                <button type="info__button" onClick={addToWishlistHandler}> 
+                      Add to Wishlist
                 </button>
                   </p>
                 </div>

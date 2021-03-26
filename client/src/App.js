@@ -4,9 +4,11 @@ import Browser from './Components/Browser/Browser'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import {Navigation} from './Components/Home/Navigation/Navigation'
 
+
 import CartScreen from "./Screens/CartScreen";
 import BookScreen from "./Screens/BookScreen";
 import ListAllBooks from "./Screens/ListAllBooks";
+import WishlistScreen from "./Screens/WishlistScreen";
 
 function App() {
   return (
@@ -31,6 +33,9 @@ function App() {
           </Route>
 
           <Route exact path='/book/:id' component={BookScreen} />
+
+           <Route exact path='/wishlist/:id?' component={WishlistScreen} />
+
           <Route exact path='/listofbooks' component={ListAllBooks} />
          
       </Switch>
