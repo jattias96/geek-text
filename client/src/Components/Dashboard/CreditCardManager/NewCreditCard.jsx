@@ -1,45 +1,43 @@
 import React from 'react';
 import "../PersonalInfoManager/PersonalInfoManager.css";
 
-export const NewCreditCard = () =>{
-    return(
+export const NewCreditCard = () => {
+
+
+    return (
         <div>
-            <form className = "personal-info-update-form">
+            <form className="personal-info-update-form">
                 <h2>
                     Add new credit card
                 </h2>
                 <label>Card Holder</label>
-                <input type = "text" placeholder = "Enter card holder"/>
+                <input type="text" placeholder="Enter card holder"/>
                 <label>Card Number</label>
-                <input type = "text" placeholder = "Enter Card Number"/>
+                <input type="text" placeholder="Enter Card Number"/>
                 <label>Expiration date</label>
                 <span>
-                    <input type = "text" placeholder = "Enter exp month"/>
-                    <input type = "text" placeholder = "Enter exp year"/>
+                    <input type="text" placeholder="Enter exp month"/>
+                    <input type="text" placeholder="Enter exp year"/>
                 </span>
-                <label style ={{marginTop:"1rem"}}>CVC</label>
-                <input type = "text" placeholder = "Enter security number"/>
-                <p className = "btn-wrapper">
-                    <span className = "btn-update-info">{/*Inline element*/}
-                        Update Login Credentials
+                <label style={
+                    {marginTop: "1rem"}
+                }>CVC</label>
+                <input type="text" placeholder="Enter security number"/>
+                <p className="btn-wrapper">
+                    <span className="btn-update-info">
+                        {/*Inline element*/}
+                        Add Credit Card
                     </span>
-                    <span className = "btn-cancel">{/*Inline element*/}
+                    <span className="btn-cancel">
+                        {/*Inline element*/}
                         Cancel
                     </span>
                 </p>
             </form>
-            <h2>
-                
-            </h2>
-            <h2>
-                
-            </h2>
-            <h2>
-                
-            </h2>
+            <h2></h2>
+            <h2></h2>
+            <h2></h2>
 
         </div>
     )
 }
-
- 

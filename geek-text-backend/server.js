@@ -8,28 +8,29 @@ import genresRouter from './routes/genres.js'
 import authorsRouter from './routes/authors.js'
 
 const server = express();
-dotenv.config(); 
+dotenv.config();
 
 import AccountManager from './routes/AccountManager/AccountManger.js';
-//============================================Middlewares==========================================
+import LoggingCredentials from './routes/LoggingCredentials/LoggingCredentialsManager.js';
+// ============================================Middlewares==========================================
 server.use(cors());
 server.use(express.json());
-//=====================================MongoDb connection & configs===============================
+// =====================================MongoDb connection & configs===============================
 const mongoURI = process.env.mongoURI;
 const connectionOptions = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
 };
 mongoose.connect(mongoURI, connectionOptions, (error) => {
-  if (error) {
-    return console.log(error);
-  }
-  console.log(`Connection to MongoDB was succesful`);
+    if (error) {
+        return console.log(error);
+    }
+    console.log(`Connection to MongoDB was succesful`);
 });
 
-//=================================================================================================
+// =================================================================================================
 server.use(AuthRoute)
 
 server.use('/books', booksRouter);
@@ -39,8 +40,10 @@ server.use('/genres', genresRouter);
 server.use('/authors', authorsRouter);
 
 server.use(AccountManager);
-//===================================Server connection & Configs===================================
+server.use(LoggingCredentials);
+
+// ===================================Server connection & Configs===================================
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server started on PORT ${PORT}`);
+    console.log(`Server started on PORT ${PORT}`);
 });

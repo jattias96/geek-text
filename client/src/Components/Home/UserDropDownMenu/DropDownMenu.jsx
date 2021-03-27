@@ -6,25 +6,35 @@ import {Link} from 'react-router-dom'
 
 
 export const DropDownMenu = () => {
-    const Logout = () =>{
+    const Logout = () => {
         localStorage.removeItem('token');
         window.location.reload(false)
     }
+
+    const SignOut = () => {
+        console.log("clickkkkkkkkkkkkkkkkk");
+        /*
+        localStorage.removeItem('token');
+        window.location.href("http://localhost:3000/")
+        */
+    }
+
     return (
-        <div className = "drop-down-menu">
-            <Link to="./dashboard" className = "Router__link">{/*Allows the link to return to black color after clicking*/}
-                <div className = "menu-option">
-                <DashboardIcon/>
-                <h3 className = "menu-text">User Dashboard</h3>
+        <div className="drop-down-menu">
+            <Link to="./dashboard" className="Router__link">
+                {/*Allows the link to return to black color after clicking*/}
+                <div className="menu-option">
+                    <DashboardIcon/>
+                    <h3 className="menu-text">User Dashboard</h3>
                 </div>
             </Link>
             <Link>
-                <div className = "menu-option">
-                <ExitToAppIcon/>
-                <h3  className = "menu-text">Logout</h3>
+                <div className="menu-option">
+                    <ExitToAppIcon/>
+                    <h3 className="menu-text">Logout</h3>
                 </div>
             </Link>
-            
         </div>
+
     )
 }
