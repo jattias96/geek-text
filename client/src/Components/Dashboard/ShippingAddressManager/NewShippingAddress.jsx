@@ -10,10 +10,48 @@ export const NewShippingAddress = () => {
     const [postalCode, setPostalCode] = useState("");
     const [country, setCountry] = useState("");
 
+    const handleChangeLoginManager = (e) => {
+        switch (e.target.id) {
+            case "street":
+                setStreet(e.target.value);
+                break;
+            case "city":
+                setCity(e.target.value);
+                break;
+            case "state":
+                setState(e.target.value);
+                break;
+            case "postalCode":
+                setPostalCode(e.target.value);
+                break;
+            case "country":
+                setCountry(e.target.value);
+                break;
+            default:
+                break;
+        }
+    }
+
     const BlankValidation = () => {
         if (!street && !city && !state && !postalCode && !country) {
             alert('At least 1 field is required');
         }
+    }
+
+    const testingVars = () => {
+        try {
+            console.log(street);
+            console.log(city);
+            console.log(state);
+            console.log(postalCode);
+            console.log(country);
+
+        } catch (e) {
+            alert(e);
+            window.location.reload();
+            return;
+        }
+
     }
 
     const cancelFunc = () => {
@@ -37,20 +75,36 @@ export const NewShippingAddress = () => {
                     Add new Shipping Address
                 </h2>
                 <label>Street</label>
-                <input type="text" placeholder="4 Yawkey Way"/>
+                <input onChange={handleChangeLoginManager}
+                    type="text"
+                    id="street"
+                    placeholder="4 Yawkey Way"/>
                 <label>City</label>
-                <input type="text" placeholder="Boston"/>
+                <input onChange={handleChangeLoginManager}
+                    type="text"
+                    id="city"
+                    placeholder="Boston"/>
                 <label>State</label>
-                <input type="text" placeholder="MA"/>
+                <input onChange={handleChangeLoginManager}
+                    type="text"
+                    id="state"
+                    placeholder="MA"/>
                 <label>Postal Code</label>
-                <input type="text" placeholder="022215"/>
+                <input onChange={handleChangeLoginManager}
+                    type="text"
+                    id="postalCode"
+                    placeholder="02225"/>
                 <label style={
                     {marginTop: "1rem"}
                 }>Country</label>
-                <input type="text" placeholder="USA"/>
+                <input onChange={handleChangeLoginManager}
+                    type="text"
+                    id="country"
+                    placeholder="USA"/>
                 <p className="btn-wrapper">
                     <span onClick={UpdateInfo}
-                        className="btn-update-info">
+                        className="btn-update-info"
+                        onClick={testingVars}>
                         {/*Inline element*/}
                         Add New Address
                     </span>

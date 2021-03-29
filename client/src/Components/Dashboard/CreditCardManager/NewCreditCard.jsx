@@ -31,6 +31,12 @@ export const NewCreditCard = () => {
         }
     }
 
+    const BlankValidation = () => {
+        if (!cardHolder && !cardNumber && !expirationMonth && !expirationYear && !securityNumber) {
+            alert('At least 1 field is required');
+        }
+    }
+
     const testingVars = () => {
         try {
             console.log(cardHolder);
@@ -83,6 +89,17 @@ export const NewCreditCard = () => {
         window.location.replace("http://localhost:3000/dashboard");
     }
 
+    const UpdateInfo = (e) => {
+        e.preventDefault();
+
+        BlankValidation();
+
+        const baseURL = {
+            dev: "http://localhost:3000/api/personal-info",
+            prod: ''
+        }
+    }
+
     return (
         <div>
             <form className="personal-info-update-form">
@@ -120,7 +137,8 @@ export const NewCreditCard = () => {
 
 
                 <p className="btn-wrapper">
-                    <span className="btn-update-info"
+                    <span onClick={UpdateInfo}
+                        className="btn-update-info"
                         onClick={testingVars}>
                         {/*Inline element*/}
                         Add Credit Card
