@@ -1,4 +1,4 @@
-import React, {useState} from 'react';/*useState is a react hook for state management */
+import React, {useState} from 'react'; /*useState is a react hook for state management */
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -7,10 +7,9 @@ import {SideBarLayOut} from './SideBarLayOut';
 import './SideBar.css';
 import {Link} from 'react-router-dom';
 
-export const SideBar = () => {
-    /*[actual state, the function to set the state] = useState(initialValue)*/
-    const [ isCreditCardMenuOpened , setIsCreditCardMenuOpened] = useState(false);
-    const [ isShippingMenuOpened , setIsShippingMenuOpened] = useState(false);
+export const SideBar = () => { /*[actual state, the function to set the state] = useState(initialValue)*/
+    const [isCreditCardMenuOpened, setIsCreditCardMenuOpened] = useState(false);
+    const [isShippingMenuOpened, setIsShippingMenuOpened] = useState(false);
     const OpenCreditCardMenu = () => {
         setIsCreditCardMenuOpened(!isCreditCardMenuOpened);
         setIsShippingMenuOpened(false);
@@ -20,43 +19,45 @@ export const SideBar = () => {
         setIsCreditCardMenuOpened(false);
     }
     return (
-        <div className = "sidebar">
-            <Link to = "/dashboard/update-info" className = "Router__link">
-                <SideBarLayOut Icon = {PersonPinIcon} text = {`Manage Personal Information`}/>{/* We give the key(Icon) and the value(PersonPin..) + text with the text that will be showed  */}
+        <div className="sidebar">
+            <Link to="/dashboard/update-info" className="Router__link">
+                <SideBarLayOut Icon={PersonPinIcon}
+                    text={`Manage Personal Information`}/>{/* We give the key(Icon) and the value(PersonPin..) + text with the text that will be showed  */} </Link>
+            <Link to="/dashboard/update-login-details" className="Router__link">
+                <SideBarLayOut Icon={VpnKeyIcon}
+                    text={`Manage Logging Details`}/>
             </Link>
-            <Link to = "/dashboard/update-login-details" className = "Router__link">
-                <SideBarLayOut Icon = {VpnKeyIcon} text = {`Manage Logging Details`}/>
-            </Link>
-            
-            <div className = "credit-menu-option">
-                <div onClick = {OpenCreditCardMenu}>
-                    <SideBarLayOut  Icon = {CreditCardIcon} text = {`Manage Credit Card Information`}/>
+
+            <div className="credit-menu-option">
+                <div onClick={OpenCreditCardMenu}>
+                    <SideBarLayOut Icon={CreditCardIcon}
+                        text={`Manage Credit Card Information`}/>
                 </div>
-                    {
-                        ! isCreditCardMenuOpened ? null : <div className = "credit-card-menu">
-                            <Link to ="/dashboard/add-new-credit-card" className = "Router__link">
-                                <h4 className = "credit-card-menu-options">- Add new Credit card</h4>
-                            </Link>
-                            
-                            <h4 className = "credit-card-menu-options">- Manage Credit card</h4>
-                        </div>
-                    }
-            </div>
-            <div className = "shipping-menu-option">
-                <div onClick = {OpenshippingMenu}>
-                <SideBarLayOut Icon = {LocalShippingIcon} text = {`Manage Shipping Addresses`}/>
+                {
+                !isCreditCardMenuOpened ? null : <div className="credit-card-menu">
+                    <Link to="/dashboard/add-new-credit-card" className="Router__link">
+                        <h4 className="credit-card-menu-options">- Add new Credit card</h4>
+                    </Link>
+                    <Link to="" className="Router__link">
+                        <h4 className="credit-card-menu-options">- Manage Credit card</h4>
+                    </Link>
                 </div>
-                    {
-                        ! isShippingMenuOpened ? null : <div className = "shipping-menu">
-                           
-                             <Link to = "" className = "Router__link"> 
-                                <h4 className = "shipping-menu-options">- Add new Shipping Address</h4> 
-                             </Link>
-                           
-                                <h4 className = "shipping-menu-options">- Manage Shipping Address</h4>
-                        </div>
-                    }
-            </div>
+            } </div>
+            <div className="shipping-menu-option">
+                <div onClick={OpenshippingMenu}>
+                    <SideBarLayOut Icon={LocalShippingIcon}
+                        text={`Manage Shipping Addresses`}/>
+                </div>
+                {
+                !isShippingMenuOpened ? null : <div className="shipping-menu">
+
+                    <Link to="/dashboard/add-new-shipping-address" className="Router__link">
+                        <h4 className="shipping-menu-options">- Add new Shipping Address</h4>
+                    </Link>
+
+                    <h4 className="shipping-menu-options">- Manage Shipping Address</h4>
+                </div>
+            } </div>
         </div>
     )
 }
