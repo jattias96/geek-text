@@ -17,4 +17,8 @@ router.post('/api/insert-credit-card', isAuthenticated, (request, response) => {
     Controller.InsertCreditCard(request, response)
 })
 
+router.post('/api/insert-shipping-address', isAuthenticated, (request, response) => {
+    Controller.AddShippingAddress(request, response)
+})
+
 export default router

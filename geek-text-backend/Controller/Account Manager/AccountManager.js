@@ -131,6 +131,53 @@ class AccountManager {
             return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
         }
     }
+
+    AddShippingAddress(request, response) {
+
+        const form = new IncomingForm();
+
+        try {
+            console.log('FUCK THIS SHITTTTTTTTTTTTTTTTTTTTTTTTT');
+            form.parse(request, async (error, fields, files) => {
+                if (error) {
+                    return response.status(500).json({msg: 'Failed to add new shipping address info'})
+                }
+
+                const {
+                    street,
+                    city,
+                    state,
+                    postalCode,
+                    country
+                } = fields;
+
+                if (!street || !city || !state || !postalCode || !country) {
+                    return response.status(400).json({msg: "All fields are required"})
+                }
+                const userSession = request.user.data;
+                const user_email = userSession.email;
+                const userDoc = await user.findOne({email: user_email})
+
+                userDoc.shippingAddress.push({
+                    street,
+                    city,
+                    state,
+                    postalCode,
+                    country
+                })
+
+                const updatedDoc = await user.findOneAndUpdate({
+                    email: user_email
+                }, userDoc, {new: true});
+
+                return response.status(200).json({msg: 'Shipping Address information added'})
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Failed to add new shipping address info'})
+        }
+
+    }
 }
 
 export {

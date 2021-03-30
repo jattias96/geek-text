@@ -60,14 +60,38 @@ export const NewShippingAddress = () => {
 
     const UpdateInfo = (e) => {
         e.preventDefault();
-
+        console.log("gafsdafsadfsfdsfsafdsafassafsafa");
         BlankValidation();
 
         const baseURL = {
-            dev: "http://localhost:3000/api/personal-info",
+            dev: "http://localhost:5000/api/insert-shipping-address",
             prod: ''
         }
+        const url = process.env.NODE_ENV === "production" ? baseURL.prod : baseURL.dev;
+        const form_data = new FormData();
+
+
+        // street, cardNumber, expirationMonth, expirationYear, securityNumber
+        form_data.append('street', street);
+        form_data.append('city', city);
+        form_data.append('state', state);
+        form_data.append('postalCode', postalCode);
+        form_data.append('country', country);
+        const token = localStorage.getItem('token')
+        axios.post(url, form_data, {
+            headers: {
+                "x-auth-token": token
+            }
+        }).then(res => {
+            console.log(res);
+            alert('Information successfully updated');
+            // window.location.reload();
+        }).catch(err => {
+            console.log(err.response.data.msg);
+        })
+
     }
+
     return (
         <div>
             <form className="personal-info-update-form">
@@ -103,8 +127,7 @@ export const NewShippingAddress = () => {
                     placeholder="USA"/>
                 <p className="btn-wrapper">
                     <span onClick={UpdateInfo}
-                        className="btn-update-info"
-                        onClick={testingVars}>
+                        className="btn-update-info">
                         {/*Inline element*/}
                         Add New Address
                     </span>
