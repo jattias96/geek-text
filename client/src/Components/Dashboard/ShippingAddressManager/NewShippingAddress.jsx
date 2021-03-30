@@ -60,7 +60,7 @@ export const NewShippingAddress = () => {
 
     const UpdateInfo = (e) => {
         e.preventDefault();
-        console.log("gafsdafsadfsfdsfsafdsafassafsafa");
+        // console.log("gafsdafsadfsfdsfsafdsafassafsafa");
         BlankValidation();
 
         const baseURL = {

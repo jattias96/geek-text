@@ -137,7 +137,7 @@ class AccountManager {
         const form = new IncomingForm();
 
         try {
-            console.log('FUCK THIS SHITTTTTTTTTTTTTTTTTTTTTTTTT');
+
             form.parse(request, async (error, fields, files) => {
                 if (error) {
                     return response.status(500).json({msg: 'Failed to add new shipping address info'})
