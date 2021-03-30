@@ -38,7 +38,7 @@ export const SideBar = () => { /*[actual state, the function to set the state] =
                     <Link to="/dashboard/add-new-credit-card" className="Router__link">
                         <h4 className="credit-card-menu-options">- Add new Credit card</h4>
                     </Link>
-                    <Link to="" className="Router__link">
+                    <Link to="/dashboard/manage-credit-card" className="Router__link">
                         <h4 className="credit-card-menu-options">- Manage Credit card</h4>
                     </Link>
                 </div>
@@ -54,8 +54,10 @@ export const SideBar = () => { /*[actual state, the function to set the state] =
                     <Link to="/dashboard/add-new-shipping-address" className="Router__link">
                         <h4 className="shipping-menu-options">- Add new Shipping Address</h4>
                     </Link>
+                    <Link to="/dashboard/manage-shipping-address" className="Router__link">
+                        <h4 className="shipping-menu-options">- Manage Shipping Address</h4>
+                    </Link>
 
-                    <h4 className="shipping-menu-options">- Manage Shipping Address</h4>
                 </div>
             } </div>
         </div>

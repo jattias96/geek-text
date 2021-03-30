@@ -9,6 +9,8 @@ import {PersonalInfoManager} from './Components/Dashboard/PersonalInfoManager/Pe
 import {LoginManager} from './Components/Dashboard/LoginManager/LoginManager'
 import {NewCreditCard} from './Components/Dashboard/CreditCardManager/NewCreditCard'
 import {NewShippingAddress} from './Components/Dashboard/ShippingAddressManager/NewShippingAddress'
+import {ManageCreditCard} from './Components/Dashboard/CreditCardManager/ManageCreditCard'
+import {ManageShippingAddress} from './Components/Dashboard/ShippingAddressManager/ManageShippingAddress'
 
 function App() {
     return (
@@ -21,6 +23,24 @@ function App() {
                     <div className="dashboard-divider">
                         <SideBar/>{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
                         <DashboardHome/>
+                    </div>
+                </Route>
+
+                <Route path='/dashboard/manage-shipping-address'
+                    exact={true}>
+                    {/* After the user clicks the dashboard link, it opens the dashboard page */}
+                    <div className="dashboard-divider">
+                        <SideBar/>{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                        <ManageShippingAddress/>
+                    </div>
+                </Route>
+
+                <Route path='/dashboard/manage-credit-card'
+                    exact={true}>
+                    {/* After the user clicks the dashboard link, it opens the dashboard page */}
+                    <div className="dashboard-divider">
+                        <SideBar/>{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                        <ManageCreditCard/>
                     </div>
                 </Route>
                 <Route path='/dashboard/add-new-shipping-address'
