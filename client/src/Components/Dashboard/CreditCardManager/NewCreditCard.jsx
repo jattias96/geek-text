@@ -5,9 +5,9 @@ import axios from 'axios';
 export const NewCreditCard = () => {
     const [cardHolder, setcardHolder] = useState("");
     const [cardNumber, setcardNumber] = useState("");
-    const [expirationMonth, setexpirationMonth] = useState("");
-    const [expirationYear, setexpirationYear] = useState("");
-    const [securityNumber, setsecurityNumber] = useState("");
+    const [cardExpMonth, setcardExpMonth] = useState("");
+    const [cardExpYear, setcardExpYear] = useState("");
+    const [cardCVC, setcardCVC] = useState("");
 
     const handleChangeLoginManager = (e) => {
         switch (e.target.id) {
@@ -17,14 +17,14 @@ export const NewCreditCard = () => {
             case "cardNumber":
                 setcardNumber(e.target.value);
                 break;
-            case "expirationMonth":
-                setexpirationMonth(e.target.value);
+            case "cardExpMonth":
+                setcardExpMonth(e.target.value);
                 break;
-            case "expirationYear":
-                setexpirationYear(e.target.value);
+            case "cardExpYear":
+                setcardExpYear(e.target.value);
                 break;
-            case "securityNumber":
-                setsecurityNumber(e.target.value);
+            case "cardCVC":
+                setcardCVC(e.target.value);
                 break;
             default:
                 break;
@@ -32,8 +32,8 @@ export const NewCreditCard = () => {
     }
 
     const BlankValidation = () => {
-        if (!cardHolder && !cardNumber && !expirationMonth && !expirationYear && !securityNumber) {
-            alert('At least 1 field is required');
+        if (!cardHolder && !cardNumber && !cardExpMonth && !cardExpYear && !cardCVC) {
+            throw "At least 1 field is required";
         }
     }
 
@@ -41,9 +41,10 @@ export const NewCreditCard = () => {
         try {
             console.log(cardHolder);
             console.log(cardNumber);
-            console.log(expirationMonth);
-            console.log(expirationYear);
-            console.log(securityNumber);
+            console.log(cardExpMonth);
+            console.log(cardExpYear);
+            console.log(cardCVC);
+            BlankValidation();
             checkCreditCardValidation();
         } catch (e) {
             alert(e);
@@ -58,8 +59,8 @@ export const NewCreditCard = () => {
         /* Date Class Import statement. */
         var today = new Date();
         const CreditCardNumberTmp = cardNumber;
-        const ExpMonthTmp = expirationMonth;
-        const ExpYearTmp = expirationYear;
+        const ExpMonthTmp = cardExpMonth;
+        const ExpYearTmp = cardExpYear;
         const lowercase = /[a-z]/;
         const upercase = /[A-Z]/;
         const symbol = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -75,6 +76,9 @@ export const NewCreditCard = () => {
         /* Getting Full Year. */
         var yyyy = today.getFullYear();
 
+        console.log("Year by user:" + ExpYearTmp);
+        console.log("Year by PC:" + yyyy);
+
         /* Checking the year. */
         if (ExpYearTmp < yyyy) {
             throw "Credit Card has expired check your year.";
@@ -85,19 +89,75 @@ export const NewCreditCard = () => {
             throw "Credit Card has expired check your month.";
         }
     };
+
     const cancelFunc = () => {
         window.location.replace("http://localhost:3000/dashboard");
-    }
+    };
+
+    const InsertInfo = (e) => {
+        e.preventDefault();
+
+        var CreditCard = [{
+                cardHolder: cardHolder,
+                cardNumber: cardNumber,
+                cardExpMonth: cardExpMonth,
+                cardExpYear: cardExpYear,
+                cardCVC: cardCVC
+            },];
+
+        console.log("Arrayyyyyyyyyyyyyyyyyyyyyy");
+        console.log(CreditCard[0]);
+        var email = "bloodfear@arete.com";
+
+        const form_data = new FormData();
+        form_data.append('creditCards', CreditCard);
+
+        const token = localStorage.getItem('token');
+        const url = "http://localhost:3000/api/insert-credit-card";
+
+        axios.post(url, form_data, {
+            headers: {
+                "x-auth-token": token
+            }
+        }).then(res => {
+            console.log(res);
+            alert('Credit card added');
+            // window.location.reload();
+        }).catch(err => {
+            console.log(err.response.data.msg);
+        })
+    };
 
     const UpdateInfo = (e) => {
         e.preventDefault();
 
-        BlankValidation();
-
+        testingVars();
         const baseURL = {
-            dev: "http://localhost:3000/api/personal-info",
+            dev: "http://localhost:5000/api/credit-card",
             prod: ''
         }
+        const url = process.env.NODE_ENV === "production" ? baseURL.prod : baseURL.dev;
+        const form_data = new FormData();
+
+        // cardHolder, cardNumber, expirationMonth, expirationYear, securityNumber
+        form_data.append('cardHolder', cardHolder);
+        form_data.append('cardNumber', cardNumber);
+        form_data.append('cardExpMonth', cardExpMonth);
+        form_data.append('cardExpYear', cardExpYear);
+        form_data.append('cardCVC', cardCVC);
+        const token = localStorage.getItem('token')
+        axios.post(url, form_data, {
+            headers: {
+                "x-auth-token": token
+            }
+        }).then(res => {
+            console.log(res);
+            alert('Information successfully updated');
+            // window.location.reload();
+        }).catch(err => {
+            console.log(err.response.data.msg);
+        })
+
     }
 
     return (
@@ -120,11 +180,11 @@ export const NewCreditCard = () => {
                 <span>
                     <input onChange={handleChangeLoginManager}
                         type="text"
-                        id="expirationMonth"
+                        id="cardExpMonth"
                         placeholder="Enter exp month"/>
                     <input onChange={handleChangeLoginManager}
                         type="text"
-                        id="expirationYear"
+                        id="cardExpYear"
                         placeholder="Enter exp year"/>
                 </span>
                 <label style={
@@ -132,14 +192,13 @@ export const NewCreditCard = () => {
                 }>CVC</label>
                 <input onChange={handleChangeLoginManager}
                     type="text"
-                    id="securityNumber"
+                    id="cardCVC"
                     placeholder="Enter security number"/>
 
 
                 <p className="btn-wrapper">
                     <span onClick={UpdateInfo}
-                        className="btn-update-info"
-                        onClick={testingVars}>
+                        className="btn-update-info">
                         {/*Inline element*/}
                         Add Credit Card
                     </span>
