@@ -21,4 +21,17 @@ router.post('/api/insert-shipping-address', isAuthenticated, (request, response)
     Controller.AddShippingAddress(request, response)
 })
 
+router.get('/api/managing-credit-card', isAuthenticated, (request, response) => {
+    Controller.getCreditCard(request, response)
+})
+
+router.post('/api/managing-credit-cardd', isAuthenticated, (request, response) => {
+    Controller.getttCreditCard(request, response)
+})
+
+router.post('/api/deleting-credit-cardd', isAuthenticated, (request, response) => {
+    Controller.deleteCreditCard(request, response)
+})
+
+
 export default router

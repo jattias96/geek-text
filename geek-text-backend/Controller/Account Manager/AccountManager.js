@@ -10,7 +10,7 @@ class AccountManager {
                 if (error) {
                     return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
                 }
-                a
+
                 const {name, email, nickname, home_address} = fields; // Expecting at least one data from the list
                 if (!name && !email && !nickname && !home_address) {
                     return response.status(400).json({msg: 'At least 1 field is required'})
@@ -177,6 +177,70 @@ class AccountManager {
             return response.status(500).json({msg: 'Failed to add new shipping address info'})
         }
 
+    }
+
+    getCreditCard(request, response) {
+        try {
+
+            const userSession = request.user.data;
+            const user_email = userSession.email;
+            const isUserExisting = user.findOne({email: user_email});
+
+            if (! isUserExisting) {
+                return response.status(404).json({msg: 'Account with this e-mail does not exist'})
+            }
+
+            console.log();
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
+    }
+
+
+    getttCreditCard(request, response) {
+        try {
+            console.log("I got here");
+            const user_email = "luis1@gmail.com";
+            user.findOne({
+                email: user_email
+            }, {
+                id: true,
+                creditCards: true
+            }).then(result => {
+                console.log("RESULTCICOKS: " + result);
+                return response.send(result);
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
+    }
+
+    deleteCreditCard(request, response) {
+        try {
+            console.log("I got DELETE");
+
+            const user_email = "luis1@gmail.com";
+
+            user.remove({
+                creditCards: 999999999999999
+            }, {email: user_email}).then(result => {
+                console.log("RESULTLAMB: " + result);
+                return response.send(result);
+            })
+
+            /*
+            user.findOne({
+                email: user_email
+            }, {
+                id: true,
+                creditCards: true
+            })*/
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
     }
 }
 

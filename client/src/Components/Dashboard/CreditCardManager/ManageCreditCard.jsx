@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import "../PersonalInfoManager/PersonalInfoManager.css";
+
+import "../CreditCardManager/ManageCreditCard.css"
 import axios from 'axios';
 
 // const URL = 'https://jsonplaceholder.typicode.com/users';
@@ -7,25 +9,42 @@ import axios from 'axios';
 export const ManageCreditCard = () => {
     const [employees, setEmployees] = useState([]);
 
-    useEffect(() => {
-        getDataPay();
-    }, []);
+    // useEffect(() => {
+    //    getDataPay();
+    // }, []);
 
-    // Get all payments for a user.
+    // Get all creditcards for a user.
     const getDataPay = async () => { // const response = await axios.post("http://localhost:3001/payment/getpayment", {IdEmail: decoded.EmailAddressReg});
-        const response = await axios.get(URL);
-        setEmployees(response.data.results);
+        const form_data = new FormData();
+        const token = localStorage.getItem('token');
+        const url = "http://localhost:5000/api/managing-credit-cardd";
+        axios.post(url, form_data, {
+            headers: {
+                "x-auth-token": token
+            }
+        }).then(res => {
+            console.log(res);
+            console.log(res.data.creditCards);
+            setEmployees(res.data.creditCards);
+            // window.location.reload();
+        }).catch(err => {
+            console.log(err.response.data.msg);
+        })
+
+
+        /*console.log("Response" + response);*/
+        /*setEmployees(response.data.results);*/
     };
 
     const renderHeader = () => {
         let headerElement = [
-            "cardHolder",
-            "cardNumber",
-            "cardExpMonth",
-            "cardExpYear",
-            "cardCVC",
-            "Update",
-            "Delete",
+            "cardHolder     ",
+            "cardNumber     ",
+            "cardExpMonth   ",
+            "cardExpYear    ",
+            "cardCVC        ",
+            "Update         ",
+            "Delete         ",
         ];
 
         return headerElement.map((key, index) => {
@@ -34,6 +53,32 @@ export const ManageCreditCard = () => {
                 key.toUpperCase()
             }</th>;
         });
+    };
+
+    // Remove Credit card info.
+    const removeData = async (cardNumber) => { /*
+    window.location.reload();
+    */
+        const form_data = new FormData();
+        const token = localStorage.getItem('token');
+        const url = "http://localhost:5000/api/deleting-credit-cardd";
+        axios.post(url, form_data, {
+            headers: {
+                "x-auth-token": token
+            }
+        }).then(res => {
+            console.log(res);
+            console.log(res.data.creditCards);
+            // setEmployees(res.data.creditCards);
+            // window.location.reload();
+        }).catch(err => {
+            console.log(err.response.data.msg);
+        })
+        /*
+    window.location.reload();
+    */
+        const del = employees.filter(employee => cardNumber !== employee.cardNumber);
+        setEmployees(del);
     };
 
     const renderBody = () => {
@@ -51,7 +96,7 @@ export const ManageCreditCard = () => {
                     <td>{cardExpMonth}</td>
                     <td>{cardExpYear}</td>
                     <td>{cardCVC}</td>
-                    <td className="opration">
+                    <td className="operation">
                         <button className="buttonUpdate"
                             /*onClick={
                                 () => updateData(CardNumber)
@@ -62,10 +107,9 @@ export const ManageCreditCard = () => {
                     </td>
                     <td className="opration">
                         <button className="button"
-                            /*onClick={
-                                () => removeData(CardNumber)
-                        }*/
-                        >
+                            onClick={
+                                () => removeData(cardNumber)
+                        }>
                             Delete
                         </button>
                     </td>
@@ -95,7 +139,8 @@ export const ManageCreditCard = () => {
                 </div>
 
                 <p className="btn-wrapper">
-                    <span className="btn-cancel">
+                    <span className="btn-cancel"
+                        onClick={getDataPay}>
                         {/*Inline element*/}
                         Cancel
                     </span>
