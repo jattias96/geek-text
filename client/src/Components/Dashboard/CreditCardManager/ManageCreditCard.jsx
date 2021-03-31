@@ -60,6 +60,10 @@ export const ManageCreditCard = () => {
     window.location.reload();
     */
         const form_data = new FormData();
+
+        form_data.append('cardNumber', cardNumber);
+
+
         const token = localStorage.getItem('token');
         const url = "http://localhost:5000/api/deleting-credit-cardd";
         axios.post(url, form_data, {
@@ -105,7 +109,7 @@ export const ManageCreditCard = () => {
                             Update
                         </button>
                     </td>
-                    <td className="opration">
+                    <td className="operation">
                         <button className="button"
                             onClick={
                                 () => removeData(cardNumber)

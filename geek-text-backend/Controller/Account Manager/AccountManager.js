@@ -200,15 +200,17 @@ class AccountManager {
 
     getttCreditCard(request, response) {
         try {
-            console.log("I got here");
-            const user_email = "luis1@gmail.com";
+            // console.log("I got here");
+            // const user_email = "luis1@gmail.com";
+            const userSession = request.user.data;
+            const user_email = userSession.email;
+
             user.findOne({
                 email: user_email
             }, {
                 id: true,
                 creditCards: true
-            }).then(result => {
-                console.log("RESULTCICOKS: " + result);
+            }).then(result => { // console.log("RESULTCICOKS: " + result);
                 return response.send(result);
             })
 
@@ -221,12 +223,24 @@ class AccountManager {
         try {
             console.log("I got DELETE");
 
-            const user_email = "luis1@gmail.com";
+            const userSession = request.user.data;
+            const user_email = userSession.email;
 
-            user.remove({
-                creditCards: 999999999999999
-            }, {email: user_email}).then(result => {
-                console.log("RESULTLAMB: " + result);
+            /*
+            const {cardNumber} = fields;
+            console.log("user_cardNumber" + cardNumber);
+*/
+            console.log("lambooooooooooooooooooooooooooooo");
+
+            user.findOneAndUpdate({
+                email: user_email
+            }, {
+                $pull: {
+                    creditCards: {
+                        cardNumber: "111111111"
+                    }
+                }
+            }).then(result => { // console.log("RESULTLAMB: " + result);
                 return response.send(result);
             })
 
@@ -237,6 +251,27 @@ class AccountManager {
                 id: true,
                 creditCards: true
             })*/
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
+    }
+
+    managingShippingAddress(request, response) {
+        try {
+            console.log("I got Shipping Address");
+
+            // const user_email = "luis1@gmail.com";
+            const userSession = request.user.data;
+            const user_email = userSession.email;
+            user.findOne({
+                email: user_email
+            }, {
+                id: true,
+                shippingAddress: true
+            }).then(result => { // console.log("RESULTCICOKS: " + result);
+                return response.send(result);
+            })
 
         } catch (error) {
             return response.status(500).json({msg: 'Network Error: Failed to update personal information '})

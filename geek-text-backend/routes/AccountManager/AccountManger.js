@@ -33,5 +33,9 @@ router.post('/api/deleting-credit-cardd', isAuthenticated, (request, response) =
     Controller.deleteCreditCard(request, response)
 })
 
+router.post('/api/managing-shipping-adress', isAuthenticated, (request, response) => {
+    Controller.managingShippingAddress(request, response)
+})
+
 
 export default router
