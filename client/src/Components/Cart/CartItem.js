@@ -47,7 +47,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
                 onChange={(e) => qtyChangeHandler(item.book, e.target.value)}
                 className="cartItem__select"
               >
-                {[...Array(10).keys()].map((x) => (
+                {[...Array(100).keys()].map((x) => (
                   <option key={x + 1} value={x + 1}>
                     {x + 1}
                   </option>

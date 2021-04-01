@@ -20,6 +20,16 @@ const BookScreen = ({ match, history }) => {
     }
   }, [dispatch, book, match]);
 
+  // Determine whether item is already in cart and handle add operation accordingly
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const addToCartHandler = () => {
+    (cartItems.some(item => item.book === book._id)) ?
+      addToCartExistent(cartItems.find((item) => item.book === book._id).qty)
+      :
+      addToCartNew()
+  };
 
   // Close dialog and go to cart
   const onViewCart = () => {
@@ -39,11 +49,22 @@ const BookScreen = ({ match, history }) => {
   }
 
   // Add to cart (user can decide whether to stay in current page or view cart)
-  const addToCartHandler = () => {
+  const addToCartNew = () => {
     dispatch(addToCart(book._id, qty, false));
     setMessageDialog({
       isOpen: true,
       title: 'Item successfully added to Shopping Cart',
+      onViewCart: () => { onViewCart() },
+      onKeepShopping: () => { onKeepShopping() }
+    })
+  };
+
+  // Add an item already existent in cart (increment by new qty)
+  const addToCartExistent = (currQty) => {
+    dispatch(addToCart(book._id, Number(currQty) + Number(qty), false));
+    setMessageDialog({
+      isOpen: true,
+      title: 'Item successfully updated in Shopping Cart',
       onViewCart: () => { onViewCart() },
       onKeepShopping: () => { onKeepShopping() }
     })
@@ -91,7 +112,7 @@ const BookScreen = ({ match, history }) => {
                   <p>
                     Qty:
                 <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                      {[...Array(10).keys()].map((x) => (
+                      {[...Array(100).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
