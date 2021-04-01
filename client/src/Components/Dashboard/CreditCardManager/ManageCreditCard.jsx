@@ -65,7 +65,8 @@ export const ManageCreditCard = () => {
 
 
         const token = localStorage.getItem('token');
-        const url = "http://localhost:5000/api/deleting-credit-cardd";
+        // const url = "http://localhost:5000/api/deleting-credit-cardd";
+        const url = "http://localhost:5000/api/testing-deleteCC";
         axios.post(url, form_data, {
             headers: {
                 "x-auth-token": token
@@ -126,7 +127,7 @@ export const ManageCreditCard = () => {
         <div>
             <form className="personal-info-update-form">
                 <h2>
-                    Update credit card (s)
+                    List of credit card (s)
                 </h2>
 
                 <div className="container">
@@ -146,7 +147,7 @@ export const ManageCreditCard = () => {
                     <span className="btn-cancel"
                         onClick={getDataPay}>
                         {/*Inline element*/}
-                        Cancel
+                        Show
                     </span>
                 </p>
             </form>

@@ -11,6 +11,8 @@ import {NewCreditCard} from './Components/Dashboard/CreditCardManager/NewCreditC
 import {NewShippingAddress} from './Components/Dashboard/ShippingAddressManager/NewShippingAddress'
 import {ManageCreditCard} from './Components/Dashboard/CreditCardManager/ManageCreditCard'
 import {ManageShippingAddress} from './Components/Dashboard/ShippingAddressManager/ManageShippingAddress'
+import {UpdateCreditCard} from './Components/Dashboard/CreditCardManager/UpdateCreditCard'
+import {UpdateShippingAddress} from './Components/Dashboard/ShippingAddressManager/UpdateShippingAddress'
 
 function App() {
     return (
@@ -25,6 +27,25 @@ function App() {
                         <DashboardHome/>
                     </div>
                 </Route>
+
+                <Route path='/dashboard/updating-shipping-adress'
+                    exact={true}>
+                    {/* After the user clicks the dashboard link, it opens the dashboard page */}
+                    <div className="dashboard-divider">
+                        <SideBar/>{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                        <UpdateShippingAddress/>
+                    </div>
+                </Route>
+
+                <Route path='/dashboard/updating-credit-card'
+                    exact={true}>
+                    {/* After the user clicks the dashboard link, it opens the dashboard page */}
+                    <div className="dashboard-divider">
+                        <SideBar/>{/*Displays to the user dthe sideBar containg Manage Personal Information, Login Details, Credit Card Information, Shipping Address */}
+                        <UpdateCreditCard/>
+                    </div>
+                </Route>
+
 
                 <Route path='/dashboard/manage-shipping-address'
                     exact={true}>

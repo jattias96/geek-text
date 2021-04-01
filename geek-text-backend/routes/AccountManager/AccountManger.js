@@ -37,5 +37,17 @@ router.post('/api/managing-shipping-adress', isAuthenticated, (request, response
     Controller.managingShippingAddress(request, response)
 })
 
+// 3-31-21
+router.post('/api/updating-credit-card', isAuthenticated, (request, response) => {
+    Controller.updatingCreditCardInfo(request, response)
+})
+
+router.post('/api/updating-shipping-adress', isAuthenticated, (request, response) => {
+    Controller.updatingShippingAddress(request, response)
+})
+// 3-31-21
+router.post('/api/testing-deleteCC', isAuthenticated, (request, response) => {
+    Controller.deletingItemFromCreditCard(request, response)
+})
 
 export default router

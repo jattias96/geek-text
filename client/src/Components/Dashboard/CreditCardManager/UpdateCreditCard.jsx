@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import "../PersonalInfoManager/PersonalInfoManager.css";
 import axios from 'axios';
 
-export const NewCreditCard = () => {
+export const UpdateCreditCard = () => {
     const [cardHolder, setcardHolder] = useState("");
     const [cardNumber, setcardNumber] = useState("");
     const [cardExpMonth, setcardExpMonth] = useState("");
@@ -89,6 +89,7 @@ export const NewCreditCard = () => {
             throw "Credit Card has expired check your month.";
         }
     };
+
 
     const cancelFunc = () => {
         window.location.replace("http://localhost:3000/dashboard");

@@ -91,7 +91,7 @@ class AccountManager {
         }
 
     }
-
+    // OJO
     InsertCreditCard(request, response) {
         const form = new IncomingForm();
         try {
@@ -277,8 +277,75 @@ class AccountManager {
             return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
         }
     }
-}
 
+    // 3-31-21
+    updatingCreditCardInfo(request, response) {
+
+        const form = new IncomingForm();
+
+        try {
+
+            form.parse(request, async (error, fields, files) => {
+                if (error) {
+                    return response.status(500).json({msg: 'Failed to add new credit card info'})
+                }
+
+                const {
+                    cardHolder,
+                    cardNumber,
+                    cardExpMonth,
+                    cardExpYear,
+                    cardCVC
+                } = fields;
+
+                if (!cardHolder || !cardNumber || !cardExpMonth || !cardExpYear || !cardCVC) {
+                    return response.status(400).json({msg: "All fields are required"})
+                }
+                const userSession = request.user.data;
+                const user_email = userSession.email;
+                // const userDoc = await user.findOne({email: user_email})
+
+                user.findOneAndUpdate({
+                    email: user_email
+                }, {
+                    $pull: {
+                        creditCards: {
+                            cardNumber: "5555555555555555555"
+                        }
+                    }
+                }).then(result => { // console.log("RESULTLAMB: " + result);
+                    return response.send(result);
+                })
+
+
+                return response.status(200).json({msg: 'Credit card information added'})
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Failed to add new credit card info'})
+        }
+    }
+    updatingShippingAddress(request, response) {}
+
+    deletingItemFromCreditCard(request, response) {
+
+        const id_creditCard = '1';
+        const email = 'luis1@gmail.com';
+
+
+        console.log("Inside DeletingITEMFROMCREDITCARD ");
+
+        user.update({}, {
+            $pull: {
+                'creditCards': {
+                    $in: ["5555555555555555555"]
+                }
+            }
+
+        });
+
+    }
+}
 export {
     AccountManager
 }
