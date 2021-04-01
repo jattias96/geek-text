@@ -5,6 +5,8 @@ import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
 import { Link } from "react-router-dom";
 import MessageDialog from "../Components/Cart/UI/MessageDialog";
+import { CircularProgress } from '@material-ui/core';
+import Rating from '../Components/Cart/Rating';
 
 const BookScreen = ({ match, history }) => {
 
@@ -81,7 +83,7 @@ const BookScreen = ({ match, history }) => {
     <div className="productscreen">
       {
         loading ? (
-          <h2>Loading...</h2>
+          <h2><CircularProgress className="circular_progress" /></h2>
         ) : error ? (
           <h2>{error}</h2>
         ) :
@@ -92,8 +94,8 @@ const BookScreen = ({ match, history }) => {
                   <img src={book.cover} alt={book.title} />
                 </div>
                 <div className="left__info">
-                  <div className="left__name"><p>{book.title}</p></div>
-                  <p>By {book.authorName}</p>
+                  <div className="left__name"><div>{book.title}</div></div>
+                  <p>{book.authorName}</p>
                   <p>{bio}</p>
                   <p>{book.description}</p>
                   <p>Publisher: {publisher}</p>
@@ -101,6 +103,20 @@ const BookScreen = ({ match, history }) => {
                   <p>Edition: {edition}</p>
                   <p>sold: {book.sold}</p>
                   <p>Genre: {genre}</p>
+             
+                  <div>Comments:</div>
+                    {(book.comments) ?
+                      (book.comments).map(comment =>
+                        <div>
+                          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                          <div> <Rating value={comment.rating} />{comment.commenter}</div>
+                          <h3>{comment.title}</h3>
+                          <p>{comment.content}</p>
+                          <hr />
+                        </div>) 
+                        : 
+                        "no comments"}
+                 <div className="comments"> </div>
                 </div>
               </div>
               <div className="productscreen__right">
