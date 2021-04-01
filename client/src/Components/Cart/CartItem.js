@@ -74,8 +74,9 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
               {item.title}
             </Link>
             <div className="cartItem__author">
-              By {item.authorName}
-            </div>
+                {/* TODO: link to author page */}
+                By <div className="cartItem__author__link">{item.authorName}</div>
+              </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
               
            <Rating
