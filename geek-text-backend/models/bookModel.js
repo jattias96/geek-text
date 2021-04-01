@@ -57,8 +57,7 @@ const bookSchema = new Schema({
             type: String
         },
         edition:{
-            type: Number,
-            minlength: 1
+            type: String
         },
         isbn:{
             type: String,
