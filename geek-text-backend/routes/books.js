@@ -41,6 +41,8 @@ router.route('/add').post((req,res) => {
 // Get a specific book
 router.route('/:id').get(async(req, res)=>{
     await Book.findById(req.params.id)
+    .populate('genre')
+    .populate('author')
     .then(book => res.json(book))
     .catch(err => res.status(400).json('Error: ' + err));
 });
