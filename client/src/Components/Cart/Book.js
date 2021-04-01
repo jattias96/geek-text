@@ -1,9 +1,51 @@
-
 import "./Book.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import Rating from './Rating';
+import { addToCart } from "../../Redux/actions/cartActions";
+import Notification from "./UI/Notification";
 
 const Book = ({ cover, description, price, title, bookId, authorName, rating }) => {
+
+  const dispatch = useDispatch();
+
+  // Add a new item to cart
+  const addToCartNew = () => {
+    dispatch(addToCart(bookId, Number(1), false));
+    setNotify({
+      isOpen: true,
+      message: `"${title}" was added to cart`,
+      type: 'success',
+      typeStyle: 'specific'
+    })
+  };
+
+  // Add an item that already exists in cart (increment by 1)
+  const addToCartExistent = (currQty) => {
+    dispatch(addToCart(bookId, Number(currQty) + Number(1), false));
+    setNotify({
+      isOpen: true,
+      message: `"${title}" was updated in cart`,
+      type: 'success',
+      typeStyle: 'specific'
+    })
+  };
+
+  // Notification
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+
+  // Determine whether item is already existent in cart and handle add operation accordingly
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+  const addToCartHandler = () => {
+    (cartItems.some(item => item.book === bookId)) ?
+      addToCartExistent(cartItems.find((item) => item.book === bookId).qty)
+      :
+      addToCartNew()
+  };
+
 
   return (
     <div className="product">
@@ -11,6 +53,7 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         <img src={cover} alt={title} />
       </div>
       <div className="product__info">
+
         <Link to={`/book/${bookId}`} className="cartItem__name">
           <p className="info__name">{title}</p>
         </Link>
@@ -21,9 +64,18 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         />
         <p className="info__description">{description}</p>
         <p className="info__price">${parseFloat(price).toFixed(2)}</p>
+      </div>
+      <div className="browser_buttons">
         <Link to={`/book/${bookId}`} className="info__button">
           Details
-          </Link>
+        </Link>
+        <button type="info__button" onClick={addToCartHandler}>
+          <AddShoppingCartIcon fontSize="small" />
+        </button>
+        <Notification
+          notify={notify}
+          setNotify={setNotify}
+        />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Book from "../Components/Cart/Book";
 import { getBooks as listBooks } from "../Redux/actions/bookActions";
+import { CircularProgress } from '@material-ui/core';
 
 const ListAllBooks = () => {
 
@@ -20,7 +21,9 @@ const ListAllBooks = () => {
       <h2 className="homescreen__title">Find Books!</h2>
       <div className="homescreen__products">
         {loading ? (
-          <h2>Loading...</h2>
+          <div className="circular_progress">
+          <CircularProgress className="circular_progress"/>
+          </div>
         ) : error ? (
           <h2>{error}</h2>
         ) : (
