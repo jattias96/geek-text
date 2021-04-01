@@ -30,7 +30,7 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
     dispatch(addToCart(bookId, Number(currQty) + Number(1), false));
     setNotify({
       isOpen: true,
-      message: `"${title} (${Number(currQty) + Number(1)}x) was updated in cart`,
+      message: `"${title} (${Number(currQty) + Number(1)}x) was added to cart`,
       type: 'success',
       typeStyle: 'specific'
     })
