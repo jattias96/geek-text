@@ -2,7 +2,7 @@ const AuthorBooksScreen = () => {
   
   const booksArray = [];
   const bookRenderer = booksArray.map(x => <div>
-
+    
   </div>)
   
   return (

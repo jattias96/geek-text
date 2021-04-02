@@ -13,7 +13,7 @@ const bookSchema = new Schema({
        type: Schema.Types.ObjectId,
        ref: 'Author',
     },
-
+    
     authorName: {
         type: String, 
         maxlength: 50
@@ -29,8 +29,27 @@ const bookSchema = new Schema({
         default: 0
     },
 
-    comments:{
-        type: [String],
+    comments: {
+        type:
+            [
+                {
+                    commenter: {
+                        type: String
+                    },
+                    title: {
+                        type: String
+                    },
+                    content: {
+                        type: String
+                    },
+                    rating: {
+                        type: Number,
+                        max: 5,
+                        min: 1,
+                        default: 1
+                    }
+                }
+            ],
         default: []
     },
     

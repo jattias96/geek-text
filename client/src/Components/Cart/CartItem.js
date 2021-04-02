@@ -19,20 +19,24 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
               <Link to={`/book/${bookId}`} className="cartItem__name">
                 {item.title}
               </Link>
+              
               <div className="cartItem__author">
-                By {item.authorName}
+                {/* TODO: link to author page */}
+                By <div className="cartItem__author__link">{item.authorName}</div>
               </div>
+              <div className="rating_Cart">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                <Rating
                 value={item.rating}
               />
+              </div>
               <button className="saveforlater_button"
                 onClick={() => saveForLaterHandler(item.book, item.qty)}>
                 Save for later
           </button>
       &emsp;|&emsp;
               <button className="cartItem__deleteBtn"
-                onClick={() => removeHandler(item.book)}>
+                onClick={() => removeHandler(item.book, item.title)}>
                 <i className="fa fa-trash fa-lg"></i>
               </button>
             </div>
@@ -43,7 +47,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
                 onChange={(e) => qtyChangeHandler(item.book, e.target.value)}
                 className="cartItem__select"
               >
-                {[...Array(10).keys()].map((x) => (
+                {[...Array(100).keys()].map((x) => (
                   <option key={x + 1} value={x + 1}>
                     {x + 1}
                   </option>
@@ -84,7 +88,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
               </button>
               &emsp;|&emsp;
               <button className="cartItem__deleteBtn"
-              onClick={() => removeHandler(item.book)}>
+              onClick={() => removeHandler(item.book, item.title)}>
               <i className="fa fa-trash fa-lg"></i>
             </button>
           </div>

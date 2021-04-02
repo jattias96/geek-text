@@ -1,9 +1,12 @@
 import "./CartScreen.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import CartItem from "../Components/Cart/CartItem";
+import Notification from "../Components/Cart/UI/Notification";
+import ConfirmDialog from "../Components/Cart/UI/ConfirmDialog";
 import { addToCart, removeFromCart } from "../Redux/actions/cartActions";
+import axios from "axios";
 
 
 const CartScreen = () => {
@@ -13,6 +16,11 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  // Confirm Dialog
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+  // Notification
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '', typeStyle: '' });
 
   // Items saved for later
   const savedForLater = cartItems.filter(({ saved }) => saved === true);
@@ -35,16 +43,49 @@ const CartScreen = () => {
     dispatch(addToCart(id, qty, false))
   };
 
-  // Remove an item from shopping cart
-  const removeFromCartHandler = (id) => {
+  // Remove an item from shopping cart and display message
+  const removeFromCartHandler = (id, title) => {
     dispatch(removeFromCart(id));
+    setNotify({
+      isOpen: true,
+      message: `"${title}" was removed from cart`,
+      type: 'error',
+      typeStyle: 'specific'
+    })
   };
 
-  // Checkout
+  // Checkout every book in cart close dialog and display success message
+  const onContinue = () => {
+    inCart.map((item) => checkout(item.book, item.qty))
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false
+    })
+    setNotify({
+      isOpen: true,
+      message: 'Checkout completed successfully',
+      type: 'success',
+      typeStyle: ''
+    })
+  }
+
+  // Update sold count of book and stop displaying it in cart
+  const checkout = (id, qty) => {
+    // TODO: Database update: add books to user's purchased books
+    axios.patch(`books/purchase/${id}`, {
+      sold: qty,
+    })
+    dispatch(removeFromCart(id));
+  }
+
+  // Checkout all books in cart and display success message
   const checkoutHandler = () => {
-    // TODO: Database updates: (1) Update sold count of books & (2) add books to user's purchased books
-    alert("Checkout completed suceesfully!")
-    return inCart.map((item) => removeFromCartHandler(item.book));
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Are you sure you want to checkout?',
+      subTitle: "You can't undo this operation",
+      onContinue: () => { onContinue() }
+    })
   }
 
   // Get number of items saved for later
@@ -85,24 +126,18 @@ const CartScreen = () => {
                     <p>Continue Shopping</p>
                   </div>
                 </Link>
-
               </div>
               )
               :
               (
                 <div className="cartscreen__center">
-                  <h1>Your Shopping Cart Is Empty!</h1>
+                  <h1>Your Shopping Cart Is Empty.</h1>
                   <p></p>
-                  <p>Sign in to start shopping.</p>
-                  <Link to="/Auth" className="Router_Link">
-                    <div className="cart_button" >
-                      <p>Sign In</p>
-                    </div>
-                  </Link>
+                  <p>Add some books!</p>
                   <div></div>
                   <Link to="/listofbooks" className="Router_Link">
                     <div className="cart_button">
-                      <p>Continue Shopping</p>
+                      <p>Start Shopping</p>
                     </div>
                   </Link>
                 </div>)
@@ -130,6 +165,14 @@ const CartScreen = () => {
             <button onClick={() => checkoutHandler()} className="cart_button_checkout" disabled={inCart.length === 0}>
               Proceed to Checkout
             </button>
+            <Notification
+              notify={notify}
+              setNotify={setNotify}
+            />
+            <ConfirmDialog
+              confirmDialog={confirmDialog}
+              setConfirmDialog={setConfirmDialog}
+            />
           </div>
         </div>
 
@@ -157,7 +200,7 @@ const CartScreen = () => {
               )}
               <div className="number_of_items_saved">
                 ({getSavedCount()}) items
-          </div>
+              </div>
             </div>
           </div>
         ) : ""

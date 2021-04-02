@@ -18,28 +18,33 @@ export const Navigation = () => {
 
     return (
         <div className="nav">
-            <div className="left">
+            <div className="nav-left">
                 <Link to="/" className="Router_Link">
                     <img className="resize" src={Logo} alt="logo" />
                     <h1 className="inlineheader">Geek Text</h1>
                 </Link>
             </div>
+
             <div className="nav-right">
-                <Link to="/" className="Router_Link">
-                    <div className="nav-right-booklist nav-link">
-                        <h4 className="links">View Books</h4>
-                    </div>
-                </Link>
+                
+                <div className="nav-right-booklist nav-link">
+                <Link to ="/browse" className = "Router_Link">
+                    <h4 className="links">View Books</h4>
+                    </Link>
+                </div>
+
                 <div className="nav-right-auth nav-link">
                     <Link to="/auth" className="Router_Link">
                         <h4 className="links">Sign-up/Sign-in</h4>
                     </Link>
                 </div>
+
                 <div className="nav-right-addBook nav-link">
                     <Link to="/listofbooks" className="Router_Link">
                         <h4 className="links">Add New Book</h4>
                     </Link>
                 </div>
+
                 <div className="nav-right-cart nav-link">
                     <Link to="/cart" className="Router_Link">
                         <div className="cartlogo_badge">{getCartCount()}</div>
