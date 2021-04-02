@@ -7,6 +7,7 @@ import {Navigation} from './Components/Home/Navigation/Navigation'
 import CartScreen from "./Screens/CartScreen";
 import BookScreen from "./Screens/BookScreen";
 import ListAllBooks from "./Screens/ListAllBooks";
+import AuthorBooksScreen from './Screens/AuthorBooksScreen';
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
 
           <Route exact path='/book/:id' component={BookScreen} />
           <Route exact path='/listofbooks' component={ListAllBooks} />
-         
+          <Route exact path='/authorbooks/:id' component={AuthorBooksScreen} />
       </Switch>
     </Router>
   );
