@@ -13,10 +13,8 @@ export const DropDownMenu = () => {
 
     const SignOut = () => {
         console.log("clickkkkkkkkkkkkkkkkk");
-        /*
         localStorage.removeItem('token');
-        window.location.href("http://localhost:3000/")
-        */
+        window.location = "http://localhost:3000/"
     }
 
     return (
@@ -29,7 +27,8 @@ export const DropDownMenu = () => {
                 </div>
             </Link>
             <Link>
-                <div className="menu-option">
+                <div className="menu-option"
+                    onClick={SignOut}>
                     <ExitToAppIcon/>
                     <h3 className="menu-text">Logout</h3>
                 </div>

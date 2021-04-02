@@ -55,11 +55,10 @@ export const Navigation = () => {
                         <DropDownMenu/>
                     </Popup> : null
                 }
-                    <div className="menu-option">
+                    {/*<div className="menu-option">
                         <h3 className="menu-text"
-                            onClick={SignOut}>Logout</h3>
-                    </div>
-                </div>
+                            onClick={SignOut}></h3>
+            </div>*/} </div>
 
             </div>
         </div>

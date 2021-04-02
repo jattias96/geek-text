@@ -6,14 +6,13 @@ import axios from 'axios';
 
 // const URL = 'https://jsonplaceholder.typicode.com/users';
 
-export const ManageCreditCard = () => {
+export const ManageCreditCard = (props) => {
     const [employees, setEmployees] = useState([]);
 
     // useEffect(() => {
     //    getDataPay();
     // }, []);
 
-    // Get all creditcards for a user.
     const getDataPay = async () => { // const response = await axios.post("http://localhost:3001/payment/getpayment", {IdEmail: decoded.EmailAddressReg});
         const form_data = new FormData();
         const token = localStorage.getItem('token');
@@ -23,8 +22,9 @@ export const ManageCreditCard = () => {
                 "x-auth-token": token
             }
         }).then(res => {
+
             console.log(res);
-            console.log(res.data.creditCards);
+            console.log('credit cards resopnse', res.data.creditCards);
             setEmployees(res.data.creditCards);
             // window.location.reload();
         }).catch(err => {
@@ -54,15 +54,33 @@ export const ManageCreditCard = () => {
             }</th>;
         });
     };
+    // updating data
 
+    const updateData = (cardHolder, cardNumber, cardExpMonth, cardExpYear, cardCVC, _id) => {
+        const data = {
+            cardHolder,
+            cardNumber,
+            cardExpMonth,
+            cardExpYear,
+            cardCVC,
+            _id
+
+        }
+        localStorage.setItem('data', JSON.stringify({data}))
+        window.location = '/dashboard/updating-credit-card';
+        // props.history.push('dashboard/updating-credit-card')
+
+    }
     // Remove Credit card info.
-    const removeData = async (cardNumber) => { /*
+    const removeData = async (cardNumber) => {
+        /*
     window.location.reload();
     */
+        // e.preventDefault();
+        console.log(cardNumber);
         const form_data = new FormData();
 
-        form_data.append('cardNumber', cardNumber);
-
+        form_data.append('id', cardNumber);
 
         const token = localStorage.getItem('token');
         // const url = "http://localhost:5000/api/deleting-credit-cardd";
@@ -92,7 +110,8 @@ export const ManageCreditCard = () => {
             cardNumber,
             cardExpMonth,
             cardExpYear,
-            cardCVC
+            cardCVC,
+            _id
         }) => {
             return (
                 <tr key={cardNumber}>
@@ -102,18 +121,17 @@ export const ManageCreditCard = () => {
                     <td>{cardExpYear}</td>
                     <td>{cardCVC}</td>
                     <td className="operation">
-                        <button className="buttonUpdate"
-                            /*onClick={
-                                () => updateData(CardNumber)
-                        }*/
-                        >
+                        <button type="button" className="buttonUpdate"
+                            onClick={
+                                () => updateData(cardHolder, cardNumber, cardExpMonth, cardExpYear, cardCVC, _id)
+                        }>
                             Update
                         </button>
                     </td>
                     <td className="operation">
-                        <button className="button"
+                        <button type="button" className="button"
                             onClick={
-                                () => removeData(cardNumber)
+                                () => removeData(_id)
                         }>
                             Delete
                         </button>

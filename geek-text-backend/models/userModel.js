@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
-
+import {creditCardSchema} from './creditCard.js';
+import {shippingAddressSchema} from './ShippingAddress.js';
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -29,14 +30,8 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
-    shippingAddress: { // wac
-        type: Array,
-        default: []
-    },
-    creditCards: {
-        type: Array,
-        default: []
-    },
+    shippingAddress: [shippingAddressSchema],
+    creditCards: [creditCardSchema],
     cart: {
         type: Array,
         default: []

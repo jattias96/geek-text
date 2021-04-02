@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../PersonalInfoManager/PersonalInfoManager.css";
 import axios from 'axios';
 
@@ -9,7 +9,17 @@ export const UpdateShippingAddress = () => {
     const [state, setState] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [country, setCountry] = useState("");
-
+    const [id, setId] = useState(null);
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('shippingAdress'));
+        console.log(data.data)
+        setStreet(data.data.street)
+        setCity(data.data.city);
+        setState(data.data.state);
+        setPostalCode(data.data.postalCode);
+        setCountry(data.data.country);
+        setId(data.data._id)
+    }, [])
     const handleChangeLoginManager = (e) => {
         switch (e.target.id) {
             case "street":
@@ -65,7 +75,7 @@ export const UpdateShippingAddress = () => {
         BlankValidation();
 
         const baseURL = {
-            dev: "http://localhost:5000/api/insert-shipping-address",
+            dev: "http://localhost:5000/api/updating-shipping-adress",
             prod: ''
         }
         const url = process.env.NODE_ENV === "production" ? baseURL.prod : baseURL.dev;
@@ -78,7 +88,10 @@ export const UpdateShippingAddress = () => {
         form_data.append('state', state);
         form_data.append('postalCode', postalCode);
         form_data.append('country', country);
+        form_data.append('id', id);
         const token = localStorage.getItem('token')
+        console.log('we are firing this');
+
         axios.post(url, form_data, {
             headers: {
                 "x-auth-token": token
@@ -103,21 +116,25 @@ export const UpdateShippingAddress = () => {
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="street"
+                    value={street}
                     placeholder="4 Yawkey Way"/>
                 <label>City</label>
                 <input onChange={handleChangeLoginManager}
                     type="text"
+                    value={city}
                     id="city"
                     placeholder="Boston"/>
                 <label>State</label>
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="state"
+                    value={state}
                     placeholder="MA"/>
                 <label>Postal Code</label>
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="postalCode"
+                    value={postalCode}
                     placeholder="02225"/>
                 <label style={
                     {marginTop: "1rem"}
@@ -125,6 +142,7 @@ export const UpdateShippingAddress = () => {
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="country"
+                    value={country}
                     placeholder="USA"/>
                 <p className="btn-wrapper">
                     <span onClick={UpdateInfo}

@@ -50,7 +50,8 @@ class AccountManager {
         const form = new IncomingForm();
 
         try {
-
+            const body = request.body;
+            console.log(body);
             form.parse(request, async (error, fields, files) => {
                 if (error) {
                     return response.status(500).json({msg: 'Failed to add new credit card info'})
@@ -63,6 +64,7 @@ class AccountManager {
                     cardExpYear,
                     cardCVC
                 } = fields;
+                console.log('fileds', fields)
 
                 if (!cardHolder || !cardNumber || !cardExpMonth || !cardExpYear || !cardCVC) {
                     return response.status(400).json({msg: "All fields are required"})
@@ -142,6 +144,7 @@ class AccountManager {
                 if (error) {
                     return response.status(500).json({msg: 'Failed to add new shipping address info'})
                 }
+                console.log('fireedd to create shipping')
 
                 const {
                     street,
@@ -225,7 +228,7 @@ class AccountManager {
 
             const userSession = request.user.data;
             const user_email = userSession.email;
-
+            console.log(user_email)
             /*
             const {cardNumber} = fields;
             console.log("user_cardNumber" + cardNumber);
@@ -280,7 +283,7 @@ class AccountManager {
 
     // 3-31-21
     updatingCreditCardInfo(request, response) {
-
+        console.log('firedd')
         const form = new IncomingForm();
 
         try {
@@ -295,7 +298,8 @@ class AccountManager {
                     cardNumber,
                     cardExpMonth,
                     cardExpYear,
-                    cardCVC
+                    cardCVC,
+                    id
                 } = fields;
 
                 if (!cardHolder || !cardNumber || !cardExpMonth || !cardExpYear || !cardCVC) {
@@ -304,14 +308,17 @@ class AccountManager {
                 const userSession = request.user.data;
                 const user_email = userSession.email;
                 // const userDoc = await user.findOne({email: user_email})
-
+                console.log(cardNumber, id)
                 user.findOneAndUpdate({
-                    email: user_email
+                    email: user_email,
+                    'creditCards._id': id
                 }, {
-                    $pull: {
-                        creditCards: {
-                            cardNumber: "5555555555555555555"
-                        }
+                    $set: {
+                        'creditCards.$.cardNumber': cardNumber,
+                        'creditCards.$.cardHolder': cardHolder,
+                        'creditCards.$.cardExpMonth': cardExpMonth,
+                        'creditCards.$.cardExpYear': cardExpYear,
+                        'creditCards.$.cardCVC': cardCVC
                     }
                 }).then(result => { // console.log("RESULTLAMB: " + result);
                     return response.send(result);
@@ -325,24 +332,142 @@ class AccountManager {
             return response.status(500).json({msg: 'Failed to add new credit card info'})
         }
     }
-    updatingShippingAddress(request, response) {}
+    updatingShippingAddress(request, response) {
+        const form = new IncomingForm();
 
-    deletingItemFromCreditCard(request, response) {
+        try {
+
+            form.parse(request, async (error, fields, files) => {
+                if (error) {
+                    return response.status(500).json({msg: 'Failed to add new credit card info'})
+                }
+
+                const {
+                    street,
+                    city,
+                    state,
+                    postalCode,
+                    country,
+                    id
+                } = fields;
+
+                if (!street || !city || !state || !postalCode || !country) {
+                    return response.status(400).json({msg: "All fields are required"})
+                }
+                const userSession = request.user.data;
+                const user_email = userSession.email;
+                console.log('ser mail', user_email)
+                // const userDoc = await user.findOne({email: user_email})
+                console.log('we are firing this');
+
+                user.findOneAndUpdate({
+                    email: user_email,
+                    'shippingAddress._id': id
+                }, {
+                    $set: {
+                        'shippingAddress.$.street': street,
+                        'shippingAddress.$.city': city,
+                        'shippingAddress.$.state': state,
+                        'shippingAddress.$.postalCode': postalCode,
+                        'shippingAddress.$.country': country
+                    }
+                }).then(result => { // console.log("RESULTLAMB: " + result);
+                    return response.send(result);
+                })
+
+
+                return response.status(200).json({msg: 'Credit card information added'})
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Failed to add new credit card info'})
+        }
+    }
+
+    async deletingItemFromCreditCard(request, response) {
 
         const id_creditCard = '1';
-        const email = 'luis1@gmail.com';
+        // const email = 'test1@gmail.com';
+        const userSession = request.user.data;
+        const user_email = userSession.email;
+        console.log(user_email)
 
 
-        console.log("Inside DeletingITEMFROMCREDITCARD ");
+        const form = new IncomingForm();
+        try {
+            form.parse(request, async (error, fields, files) => {
 
-        user.update({}, {
-            $pull: {
-                'creditCards': {
-                    $in: ["5555555555555555555"]
+
+                if (error) {
+                    return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
                 }
-            }
 
-        });
+                console.log('fiels', fields)
+                const {id} = fields;
+                await user.findOneAndUpdate({
+                    email: user_email
+
+                }, {
+
+                    $pull: {
+                        'creditCards': {
+                            _id: id
+                        }
+
+
+                    }
+                });
+                return response.status(200).json({msg: 'CC information updated'})
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
+
+
+    }
+
+    async deletingItemFromShippingAddress(request, response) {
+
+        const id_creditCard = '1';
+        // const email = 'test1@gmail.com';
+        const userSession = request.user.data;
+        const user_email = userSession.email;
+
+        console.log(user_email)
+
+        console.log('delete shipping address works ')
+        const form = new IncomingForm();
+        try {
+            form.parse(request, async (error, fields, files) => {
+
+
+                if (error) {
+                    return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+                }
+
+                console.log('fiels', fields)
+                const {id} = fields;
+                await user.findOneAndUpdate({
+                    email: user_email
+
+                }, {
+
+                    $pull: {
+                        'shippingAddress': {
+                            _id: id
+                        }
+
+
+                    }
+                });
+                return response.status(200).json({msg: 'CC information updated'})
+            })
+
+        } catch (error) {
+            return response.status(500).json({msg: 'Network Error: Failed to update personal information '})
+        }
+
 
     }
 }

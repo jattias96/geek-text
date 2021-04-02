@@ -50,4 +50,8 @@ router.post('/api/testing-deleteCC', isAuthenticated, (request, response) => {
     Controller.deletingItemFromCreditCard(request, response)
 })
 
+router.post('/api/deleting-shipping-adress', isAuthenticated, (request, response) => {
+    Controller.deletingItemFromShippingAddress(request, response)
+})
+
 export default router

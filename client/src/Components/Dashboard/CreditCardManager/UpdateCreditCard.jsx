@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../PersonalInfoManager/PersonalInfoManager.css";
 import axios from 'axios';
 
@@ -8,7 +8,21 @@ export const UpdateCreditCard = () => {
     const [cardExpMonth, setcardExpMonth] = useState("");
     const [cardExpYear, setcardExpYear] = useState("");
     const [cardCVC, setcardCVC] = useState("");
+    const [employees, setEmployees] = useState([]);
+    const [id, setId] = useState(null);
 
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('data'));
+        console.log(data)
+        setcardHolder(data.data.cardHolder);
+        setcardNumber(data.data.cardNumber);
+        setcardExpMonth(data.data.cardExpMonth);
+        setcardExpYear(data.data.cardExpYear);
+        setcardCVC(data.data.cardCVC);
+        setId(data.data._id);
+
+
+    }, []);
     const handleChangeLoginManager = (e) => {
         switch (e.target.id) {
             case "cardHolder":
@@ -103,7 +117,8 @@ export const UpdateCreditCard = () => {
                 cardNumber: cardNumber,
                 cardExpMonth: cardExpMonth,
                 cardExpYear: cardExpYear,
-                cardCVC: cardCVC
+                cardCVC: cardCVC,
+                id: id
             },];
 
         console.log("Arrayyyyyyyyyyyyyyyyyyyyyy");
@@ -114,7 +129,7 @@ export const UpdateCreditCard = () => {
         form_data.append('creditCards', CreditCard);
 
         const token = localStorage.getItem('token');
-        const url = "http://localhost:3000/api/insert-credit-card";
+        const url = "http://localhost:3000/api/updating-credit-card";
 
         axios.post(url, form_data, {
             headers: {
@@ -134,7 +149,7 @@ export const UpdateCreditCard = () => {
 
         testingVars();
         const baseURL = {
-            dev: "http://localhost:5000/api/credit-card",
+            dev: "http://localhost:5000/api/updating-credit-card",
             prod: ''
         }
         const url = process.env.NODE_ENV === "production" ? baseURL.prod : baseURL.dev;
@@ -146,6 +161,8 @@ export const UpdateCreditCard = () => {
         form_data.append('cardExpMonth', cardExpMonth);
         form_data.append('cardExpYear', cardExpYear);
         form_data.append('cardCVC', cardCVC);
+        form_data.append('id', id);
+        console.log('id', id);
         const token = localStorage.getItem('token')
         axios.post(url, form_data, {
             headers: {
@@ -171,21 +188,25 @@ export const UpdateCreditCard = () => {
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="cardHolder"
+                    value={cardHolder}
                     placeholder="Enter card holder"/>
                 <label>Card Number</label>
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="cardNumber"
+                    value={cardNumber}
                     placeholder="Enter Card Number"/>
                 <label>Expiration date</label>
                 <span>
                     <input onChange={handleChangeLoginManager}
                         type="text"
                         id="cardExpMonth"
+                        value={cardExpMonth}
                         placeholder="Enter exp month"/>
                     <input onChange={handleChangeLoginManager}
                         type="text"
                         id="cardExpYear"
+                        value={cardExpYear}
                         placeholder="Enter exp year"/>
                 </span>
                 <label style={
@@ -194,6 +215,7 @@ export const UpdateCreditCard = () => {
                 <input onChange={handleChangeLoginManager}
                     type="text"
                     id="cardCVC"
+                    value={cardCVC}
                     placeholder="Enter security number"/>
 
 
