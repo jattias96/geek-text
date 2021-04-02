@@ -158,8 +158,13 @@ const CartScreen = () => {
               </div>
             )))}
 
+{/* Subtotal ({getCartCount()}) {getCartCount()}?(item:) : (items:) */}
+
+
+
           <div className="right-subtotal">
-            Subtotal ({getCartCount()}) items:<div className="subtotal">&emsp;&emsp;${getCartSubTotal()}
+            Subtotal ({getCartCount()}) {getCartCount() === 1? <>item:</> : <>items:</>}
+            <div className="subtotal">&emsp;&emsp;${getCartSubTotal()}
             </div>
             <div></div>
             <button onClick={() => checkoutHandler()} className="cart_button_checkout" disabled={inCart.length === 0}>
@@ -199,7 +204,7 @@ const CartScreen = () => {
               )
               )}
               <div className="number_of_items_saved">
-                ({getSavedCount()}) items
+                ({getSavedCount()}) {getSavedCount() === 1? <>item:</> : <>items:</>}
               </div>
             </div>
           </div>

@@ -10,6 +10,9 @@ import Notification from "./UI/Notification";
 const Book = ({ cover, description, price, title, bookId, authorName, rating }) => {
 
   const dispatch = useDispatch();
+  
+  // Notification
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   // Add a new item to cart
   const addToCartNew = () => {
@@ -27,14 +30,11 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
     dispatch(addToCart(bookId, Number(currQty) + Number(1), false));
     setNotify({
       isOpen: true,
-      message: `"${title}" was updated in cart`,
+      message: `"${title} (${Number(currQty) + Number(1)}x) was added to cart`,
       type: 'success',
       typeStyle: 'specific'
     })
   };
-
-  // Notification
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   // Determine whether item is already existent in cart and handle add operation accordingly
   const cart = useSelector((state) => state.cart);
@@ -48,6 +48,7 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
 
 
   return (
+    <>
     <div className="product">
       <div className="left__image">
         <img src={cover} alt={title} />
@@ -72,12 +73,13 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         <button type="info__button" onClick={addToCartHandler}>
           <AddShoppingCartIcon fontSize="small" />
         </button>
-        <Notification
-          notify={notify}
-          setNotify={setNotify}
-        />
       </div>
     </div>
+    <Notification
+    notify={notify}
+    setNotify={setNotify}
+  />
+  </>
   );
 };
 
