@@ -5,6 +5,7 @@ export const getAuthorDetailsReducer = (state = { booksByAuthor: [] }, action) =
     case actionTypes.GET_AUTHOR_BOOKS_REQUEST:
       return {
         loading: true,
+        booksByAuthor: [],
       };
     case actionTypes.GET_AUTHOR_BOOKS_SUCCESS:
       return {
