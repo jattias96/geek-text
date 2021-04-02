@@ -33,4 +33,14 @@ router.route('/:id').get(async(req, res)=>{
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Get all books of a given author
+router.route('/getbooksby/:id').get(async(req, res)=>{
+  await Author.findById(req.params.id,'books')
+  .populate({
+      path: 'books',
+      model: 'Book'})
+  .then(author => res.json(author))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
+
 export default router;
