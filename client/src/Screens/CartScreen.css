@@ -30,6 +30,10 @@
   flex-wrap: wrap;
 }
 
+.comments {
+  padding: 8px;
+}
+
 .cartscreen__info_saved{
   border: 0.1rem #ddd solid;
   flex-wrap:wrap;
@@ -43,7 +47,7 @@
   position:inherit;
 }
   
-hr {
+.cartscreen hr {
   border: none;
   height: 1px;
   align-items: center;

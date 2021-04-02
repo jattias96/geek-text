@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import { Router } from 'express'
 import { Genre } from '../models/genreModel.js'
 
@@ -13,13 +12,10 @@ router.route('/').get((req, res)=>{
 
 // Handle post request
 router.route('/add').post((req,res) => {
-    
     const name = req.body.name;
-
     const newGenre = new Genre({
         name
     })
-
     newGenre.save()
     .then(() => res.json('Genre added!'))
     .catch(err => res.status(400).json('Error: ' + err));

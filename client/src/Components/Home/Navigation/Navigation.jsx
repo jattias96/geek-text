@@ -26,14 +26,13 @@ export const Navigation = () => {
             </div>
 
             <div className="nav-right">
-            <Link to="/" className="Router_Link">
+                
                 <div className="nav-right-booklist nav-link">
                 <Link to ="/browse" className = "Router_Link">
                     <h4 className="links">View Books</h4>
                     </Link>
                 </div>
 
-                </Link>
                 <div className="nav-right-auth nav-link">
                     <Link to="/auth" className="Router_Link">
                         <h4 className="links">Sign-up/Sign-in</h4>
@@ -45,6 +44,13 @@ export const Navigation = () => {
                         <h4 className="links">Add New Book</h4>
                     </Link>
                 </div>
+
+                <div className="nav-right-addBook nav-link">
+                    <Link to="/wishlist" className="Router_Link">
+                        <h4 className="links">Wishlist(s)</h4>
+                    </Link>
+                </div>
+
 
                 <div className="nav-right-cart nav-link">
                     <Link to="/cart" className="Router_Link">

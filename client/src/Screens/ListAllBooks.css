@@ -9,6 +9,10 @@
     margin:3rem;
     text-align: center;
   }
+
+  .circular_progress{
+    margin-left: 20rem;
+  }
   
   .homescreen__products {
     display: grid;

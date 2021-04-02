@@ -1,25 +1,38 @@
-import "./CartScreen.css";
-import { useEffect } from "react";
+import "./WishlistScreen.css";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import CartItem from "../Components/Cart/CartItem";
-import { addToCart} from "../Redux/actions/cartActions";
-import { addToWish,removeFromWishlist} from "../Redux/actions/wishlistActions";
+import WishlistItem from "../Components/Wishlist/WishlistItem";
+import { addToCart } from "../Redux/actions/cartActions";
+import { addToWish, removeFromWishlist } from "../Redux/actions/wishlistActions";
+import MessageDialog from "../Components/Cart/UI/MessageDialog";
 
 
-const WishlistScreen = () => {
+
+const WishlistScreen = ({history}) => {
+
 
   useEffect(() => { }, []);
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.wishlist);
   const { wishlistItems } = wishlist;
-
+  const [messageDialog, setMessageDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
 
   // Add item from wishlist to shopping cart
-  const addToCartHandler = (id) => {
-    dispatch(addToCart(id, 1, false))
+  const addToCartNew = (id) => {
+    dispatch(addToCart(id, 1, false));
+    dispatch(removeFromWishlist(id));
+    setMessageDialog({
+      isOpen: true,
+      title: 'Item successfully added to Shopping Cart',
+      onViewCart: () => { onViewCart() },
+      onKeepShopping: () => { onKeepShopping() }
+    })
   };
+
 
   // Remove an item from wishlist
   const removeFromWishlistHandler = (id) => {
@@ -33,6 +46,44 @@ const WishlistScreen = () => {
     return wishlistItems.length;
   };
 
+  const addToCartHandler = (id) => {
+    (cartItems.some(item => item.book === id)) ?
+      addToCartExistent(id, (cartItems.find((item) => item.book === id).qty))
+      :
+      addToCartNew(id)
+  };
+
+  // Close dialog and go to cart
+  const onViewCart = () => {
+    setMessageDialog({
+      ...messageDialog,
+      isOpen: false
+    })
+    history.push(`/cart/`);
+  }
+
+  // Close dialog and stay in current page
+  const onKeepShopping = () => {
+    setMessageDialog({
+      ...messageDialog,
+      isOpen: false
+    })
+  }
+
+  
+
+  // Add an item already existent in cart (increment by new qty)
+  const addToCartExistent = (id, currQty) => {
+    dispatch(addToCart(id, Number(currQty) + Number(1), false));
+    dispatch(removeFromWishlist(id));
+    setMessageDialog({
+      isOpen: true,
+      title: 'Item successfully updated in Shopping Cart',
+      onViewCart: () => { onViewCart() },
+      onKeepShopping: () => { onKeepShopping() }
+    })
+  };
+
 
   return (
     <>
@@ -44,7 +95,7 @@ const WishlistScreen = () => {
 
           {
 
-            wishlistItems.length !== 0 ?
+            wishlistItems.length === 0 ?
               (<div className="cartscreen__center">
                 <h1>Your Wishlist is Empty!</h1>
                 <Link to="/listofbooks" className="Router_Link">
@@ -55,25 +106,30 @@ const WishlistScreen = () => {
 
               </div>
               )
-               
-            : 
-            (wishlistItems.map((item) => (
-              <div>
-                <CartItem
-                  key={item.book}
-                  item={item}          
-                  removeHandler={removeFromWishlistHandler}
-                  saved={false}
-                  bookId={item.book}
-                />
-                <hr />
-              </div>
-            )))}
-        </div>
 
+              :
+              (wishlistItems.map((item) => (
+                <div>
+                  <WishlistItem
+                    key={item.book}
+                    item={item}
+                    removeHandler={removeFromWishlistHandler}
+                    bookId={item.book}
+                    addToCartHandler={addToCartHandler}
+                  />
+                  <hr />
+                </div>
+              )))}
+        </div>
       </div>
+      <MessageDialog
+        messageDialog={messageDialog}
+        setMessageDialog={setMessageDialog}
+      />
     </>
   );
 };
+
+
 
 export default WishlistScreen;

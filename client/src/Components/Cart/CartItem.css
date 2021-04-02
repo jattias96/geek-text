@@ -14,12 +14,18 @@
   }
 
   .cartItem__author {
-    color:rgb(98, 99, 100);
+    color:rgb(122, 124, 126);
     font-size: 11px;
   }
+  .cartItem__author__link {
+    color:rgb(122, 124, 126);
+    text-decoration: none;
+    display: inline-block;
+  }
 
-  .cartItem__name:hover {
+  .cartItem__name:hover,.cartItem__author__link:hover {
     color: #7A9EA7;
+    cursor: pointer;
   }
 
   .cartItem__select {
