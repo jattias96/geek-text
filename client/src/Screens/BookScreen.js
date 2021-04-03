@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
-import { getAuthorDetails } from '../Redux/actions/authorActions';
 import BookCoverModal from '../Modal/BookCoverModal';
 // import { determineGenre } from '../JonathanFiles/genreDeterminer';
 import { Link } from "react-router-dom";
@@ -116,16 +115,15 @@ const BookScreen = ({ match, history }) => {
                   <div>Comments:</div>
                     {(book.comments) ?
                       (book.comments).map(comment =>
-                        <div>
+                        <div className="comments"> 
                           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                           <div> <Rating value={comment.rating} />{comment.commenter}</div>
                           <h3>{comment.title}</h3>
                           <p>{comment.content}</p>
-                          <hr />
-                        </div>) 
-                        : 
-                        "no comments"}
-                 <div className="comments"> </div>
+                        </div>)
+                        :
+                        ""
+                    }
                 </div>
               </div>
               <div className="productscreen__right">

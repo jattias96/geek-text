@@ -7,7 +7,7 @@ import Rating from './Rating';
 import { addToCart } from "../../Redux/actions/cartActions";
 import Notification from "./UI/Notification";
 
-const Book = ({ cover, description, price, title, bookId, authorName, rating }) => {
+const Book = ({ cover, description, price, title, bookId, authorName, rating, authorId }) => {
 
   const dispatch = useDispatch();
   
@@ -30,7 +30,7 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
     dispatch(addToCart(bookId, Number(currQty) + Number(1), false));
     setNotify({
       isOpen: true,
-      message: `"${title} (${Number(currQty) + Number(1)}x) was added to cart`,
+      message: `"${title} (x${Number(currQty) + Number(1)}) was added to cart`,
       type: 'success',
       typeStyle: 'specific'
     })
@@ -50,7 +50,7 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
   return (
     <>
     <div className="product">
-      <div className="left__image">
+      <div className="center__image">
         <img src={cover} alt={title} />
       </div>
       <div className="product__info">
@@ -58,12 +58,15 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         <Link to={`/book/${bookId}`} className="cartItem__name">
           <p className="info__name">{title}</p>
         </Link>
-        <p className="info__author">By {authorName}</p>
+        <p className="info__author">By <Link to={`/authorbooks/${authorId}`}className="book__author__link">{authorName}</Link></p>
+       
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <Rating
-          value={rating}
-        />
-        <p className="info__description">{description}</p>
+        <div className="book__rating__stars">
+        <Rating value={rating}/> 
+        </div>
+        <div className="book__rating">({rating})</div>
+        
+        <div className="info__description">{description}</div>
         <p className="info__price">${parseFloat(price).toFixed(2)}</p>
       </div>
       <div className="browser_buttons">

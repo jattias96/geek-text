@@ -1,5 +1,5 @@
 import "./BookScreen.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from '@material-ui/core';
 import { getBooksByAuthor } from '../Redux/actions/authorActions';
@@ -35,7 +35,7 @@ const AuthorBooksScreen = ({ match }) => {
                 rating={book.rating}
                 cover={book.cover}
                 bookId={book._id}
-                author={book.author}
+                authorId={book.author}
                 authorName={book.authorName}
               />
             )

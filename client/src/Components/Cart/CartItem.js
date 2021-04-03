@@ -21,14 +21,14 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
               </Link>
               
               <div className="cartItem__author">
-                {/* TODO: link to author page */}
-                By <div className="cartItem__author__link">{item.authorName}</div>
+                By <Link to={`/authorbooks/${item.author._id}`}className="cartItem__author__link">{item.authorName}</Link>
               </div>
               <div className="rating_Cart">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-               <Rating
-                value={item.rating}
-              />
+              <div className="book__rating__stars">
+        <Rating value={item.rating}/> 
+        </div>
+        <div className="book__rating">({item.rating})</div>
               </div>
               <button className="saveforlater_button"
                 onClick={() => saveForLaterHandler(item.book, item.qty)}>
