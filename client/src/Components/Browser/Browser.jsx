@@ -2,6 +2,8 @@ import React from 'react'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import './Browser.css'
+import Book from "../Cart/Book"
+import { Select, MenuItem, InputLabel } from '@material-ui/core';
 
 const BOOKS = 'http://localhost:5000/books/'
 const AUTHORS = 'http://localhost:5000/authors/';
@@ -10,52 +12,57 @@ export default class Browser extends React.Component {
 
     constructor(props) {
         super(props);
-        this.deleteBook = this.deleteBook.bind(this);
-        this.onTitle = this.onTitle.bind(this);
-        this.onCover = this.onCover.bind(this);
-        this.onPrice = this.onPrice.bind(this);
-        this.onRating = this.onRating.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
         this.state = {
-            books: []
+            allBooks: [],
+            books: [],
+            page: Number = 1, 
+            lastPage: Number = 100,
+            perPage: Number = 10,
         }
     }
 
-    deleteBook(id) {
-        Axios.delete(BOOKS + id)
-            .then(res => console.log(res.data));
 
-        this.setState({
-            books: this.state.books.filter(el => el._id !== id)
-        })
-    }
+    
+    //Get Books from db
+    componentDidMount() {
 
-    // ! NOT FUNCTIONAL
-    getAuthor() {
-        Axios.get(AUTHORS + this.state.books.author)
+        this.sortByTS();
+      /*  Axios.get(BOOKS)
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
-                        author: response.data
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(10 + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
                     })
                 }
                 else {
-                    console.log("No author")
+                    console.log("No books recieved")
                 }
             })
             .catch((error) => {
                 console.log(error);
             })
+            */
     }
 
-    //Get Books from db
-    componentDidMount() {
-
-        Axios.get(BOOKS)
+    sortByTS(){ // Top Sellers
+        Axios.get(BOOKS + "getByTS")
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
-                        books: response.data
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
                     })
                 }
                 else {
@@ -67,41 +74,152 @@ export default class Browser extends React.Component {
             })
     }
 
-    onAuthor(e) {
-        this.setState({
-            author: e.target.value
-        });
+    sortByTitle(){
+        Axios.get(BOOKS + "getByTitle")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
-    onTitle(e) {
-        this.setState({
-            title: e.target.value
-        });
+    sortByRating(){ 
+        Axios.get(BOOKS + "getByRating")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                       
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
-    onCover(e) {
-        this.setState({
-            cover: e.target.value
-        });
+    sortByRD(){ // RD = Release Date
+        Axios.get(BOOKS + "getByRD")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
-    onPrice(e) {
-        this.setState({
-            price: e.target.value
-        });
+    sortByPrice(){ // Price descending
+        Axios.get(BOOKS + "getByPrice")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
-    onRating(e) {
-        this.setState({
-            rating: e.target.value
-        });
+    sortByAuthor(){ // name, alphabetical
+        Axios.get(BOOKS + "getByAuthor")
+            .then(response => {
+                if (response.data.length > 0) {
+                    this.setState({
+                        allBooks: response.data,
+                        page: 1,
+                    })
+                    this.setState({
+                        books: this.state.allBooks.slice((0 + (this.state.page -1)* this.state.perPage),(this.state.perPage + (this.state.page -1)* this.state.perPage)),
+                        lastPage: Math.ceil(this.state.allBooks.length / this.state.perPage) ,
+                        
+                    })
+                }
+                else {
+                    console.log("No books recieved")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
+    goNext(){ //next page
+        if(this.state.page + 1 <= this.state.lastPage){
+        this.setState({    
+            page: this.state.page + 1,
+        })
+        this.setState((state)=>{
+            return{
+                books: this.state.allBooks.slice((0 + (state.page -1)* state.perPage),(this.state.perPage + (state.page -1)* state.perPage))
+            }
+            })
+        }
+    }
+
+    goBack(){ //previous page
+        if(this.state.page - 1 >= 1){
+        this.setState({
+            page: this.state.page -1,
+        })
+        this.setState((state)=>{
+            return{
+            books: this.state.allBooks.slice((0 + (state.page -1)* state.perPage),(this.state.perPage + (state.page -1)* state.perPage))
+            }
+        })
+     }
+    }
+    
 
 render(){
     return(
 <div className="center">
-<h1>Currently viewing most popular books</h1>
+<h1>Find Books Below</h1>
 <div className="nav">
 
 <div className=".nav-left">
@@ -110,57 +228,94 @@ render(){
 </div>
 
 <div className="nav-right">
+
+<div className="nav-right-booklist nav-link">
+     <button value = "sortByTS" onClick={ () => this.sortByTS()}>
+        <h4 className="links">Top Sellers</h4>
+        </button>
+    </div>
+
     <div className="nav-right-booklist nav-link">
-    
-        <h4 className="links">method a</h4>
+     <button value = "sortByTitle" onClick={ () => this.sortByTitle()}>
+        <h4 className="links">Title</h4>
+        </button>
     </div>
 
     <div className="nav-right-auth nav-link">
-            <h4 className="links">method b</h4>
+    <button value = "sortByRating" onClick={() => this.sortByRating()}>
+            <h4 className="links">Rating</h4>
+            </button>
        
     </div>
 
     <div className="nav-right-addBook nav-link">
-        <h4 className="links">method c</h4>
+    <button value = "sortByRD" onClick={() => this.sortByRD()}>
+        <h4 className="links">Newest</h4>
+        </button>
+    </div>
+    <div className="nav-right-addBook nav-link">
+    <button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">Price</h4>
+        </button>
     </div>
 
     <div className="nav-right-cart nav-link">
-        <h4 className = "links">method d</h4>
+    <button value = "sortByAuthor" onClick={() => this.sortByAuthor()}>
+        <h4 className = "links">Author</h4>
+        </button>
+    </div>
+    <div className="nav-right-cart nav-link">
+    <InputLabel id="label">Genre</InputLabel>
+<Select labelId="label" id="select" value="All" >
+  <MenuItem value="All"><button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">All</h4>
+        </button></MenuItem>
+  <MenuItem value="Fiction"><button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">Fiction</h4>
+        </button></MenuItem>
+  <MenuItem value="NF"><button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">Non-Fiction</h4>
+        </button></MenuItem>
+  <MenuItem value="MY"><button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">Mystery</h4>
+        </button></MenuItem>
+    <MenuItem value="CD"><button value = "sortByPrice" onClick={() => this.sortByPrice()}>
+        <h4 className="links">Comedy</h4>
+        </button></MenuItem>
+</Select>
     </div>
 </div>
 </div>
     <div className="card">
-                        <p>{this.state.books.map(function (book) {
-
-                            return <p>
-                                <div className="solid">
-                                    <div className="row.bottom">
-                                        <div className="row.start">
-                                            <div className="card-body">
-                                                <div>
-                                                    <img
-                                                        src={book.cover}
-                                                        alt={book.title}
-                                                        className="small"
-                                                    ></img>
-                                                </div>
-                                                <div className="smaller-font">
-                                                    <p>"{book.title}" </p>
-                                                    <div className="author">
-                                                        <p>by {book.author.name} </p>
-                                                    </div>
-                                                    <div className="price">
-                                                        <p>${book.price}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </p>
+                        <p>{this.state.books.map((book) => (
+            <Book
+              key={book._id}
+              title={book.title}
+              price={book.price}
+              rating={book.rating}
+              cover={book.cover}
+              bookId={book._id}
+              author={book.author}
+              authorName={book.authorName}
+            />
+          ),{
                         })}
                             </p>
                         
+    </div>
+    <div className="nav">
+    <div className=".nav-left">
+    <button value = "sortByTitle" onClick={ () => this.goBack()}>
+        <h4 className="links">Previous</h4>
+        </button>
+    </div>
+    
+                    <h2>{this.state.page} / {this.state.lastPage}</h2>
+    <div className=".nav-right">
+    <button value = "sortByTitle" onClick={ () => this.goNext()}>
+        <h4 className="links">  next  </h4>
+        </button>
+    </div>
     </div>
 </div>
     )
