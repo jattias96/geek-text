@@ -35,7 +35,7 @@ const ListAllBooks = () => {
               rating={book.rating}
               cover={book.cover}
               bookId={book._id}
-              author={book.author}
+              authorId={book.author}
               authorName={book.authorName}
             />
           ))

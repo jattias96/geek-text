@@ -28,6 +28,28 @@
     cursor: pointer;
   }
 
+  .book__author__link {
+    color:rgb(122, 124, 126);
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .book__author__link:hover {
+    color: #7A9EA7;
+    cursor: pointer;
+  }
+  
+  .book__rating__stars{
+    display: inline-block;
+  }
+  
+  .book__rating{
+    font-size: 10px;
+    display: inline-block;
+    margin: auto;
+  }
+  
+
   .cartItem__select {
     padding: 10px 10px;
     position:inherit;

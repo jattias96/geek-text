@@ -72,7 +72,7 @@ const CartScreen = () => {
   // Update sold count of book and stop displaying it in cart
   const checkout = (id, qty) => {
     // TODO: Database update: add books to user's purchased books
-    axios.patch(`books/purchase/${id}`, {
+    axios.patch(`/books/purchase/${id}`, {
       sold: qty,
     })
     dispatch(removeFromCart(id));
