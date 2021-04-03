@@ -133,3 +133,8 @@ border-radius: 50px;
 .browser_buttons button:hover{
   color: #7A9EA7;
 }
+
+.left__image {
+  align-self: center;  
+  /* flex: 1; */
+}
