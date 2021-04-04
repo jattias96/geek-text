@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
 import { addToWishlist } from "../Redux/actions/wishlistActions";
+import BookCoverModal from '../Modal/BookCoverModal';
+// import { determineGenre } from '../JonathanFiles/genreDeterminer';
 import { Link } from "react-router-dom";
 import MessageDialog from "../Components/Cart/UI/MessageDialog";
 import { CircularProgress } from '@material-ui/core';
@@ -11,6 +13,8 @@ import Rating from '../Components/Cart/Rating';
 
 const BookScreen = ({ match, history }) => {
 
+  const [show, setShow] = useState(false);
+  
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const bookDetails = useSelector((state) => state.getBookDetails);
@@ -87,7 +91,7 @@ const BookScreen = ({ match, history }) => {
   const edition = ((book || {}).publishingInfo || {}).edition;
   const genre = ((book || {}).genre || {}).name;
   const bio = ((book || {}).author || {}).bio;
-
+  const authorID = ((book || {}).author || {})._id;
 
   return (
     <div className="productscreen">
@@ -101,13 +105,17 @@ const BookScreen = ({ match, history }) => {
             <>
               <div className="productscreen__left">
                 <div className="small">
-                  <img src={book.cover} alt={book.title} />
+                  <input type="image" src={book.cover} alt="book cover" className="book-cover" onClick={() => setShow(true)}/>
+                  <BookCoverModal title="Book Cover" onClose={() => setShow(false)} show={show}>
+                    <img src={book.cover} alt="book cover" className="book-cover-large"/>
+                  </BookCoverModal>
                 </div>
                 <div className="left__info">
                   <div className="left__name"><div>{book.title}</div></div>
-                  <p>{book.authorName}</p>
-                  <p>{bio}</p>
-                  <p>{book.description}</p>
+                  <p>(Rating: {book.rating})</p>
+                  <h4>By <Link to={`/authorbooks/${authorID}`}>{book.authorName}</Link></h4>
+                  <p>Author Bio: {bio}</p>
+                  <p>Description: {book.description}</p>
                   <p>Publisher: {publisher}</p>
                   <p>ISBN: {isbn}</p>
                   <p>Edition: {edition}</p>
@@ -117,16 +125,15 @@ const BookScreen = ({ match, history }) => {
                   <div>Comments:</div>
                     {(book.comments) ?
                       (book.comments).map(comment =>
-                        <div>
+                        <div className="comments"> 
                           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                           <div> <Rating value={comment.rating} />{comment.commenter}</div>
                           <h3>{comment.title}</h3>
                           <p>{comment.content}</p>
-                          <hr />
-                        </div>) 
-                        : 
-                        "no comments"}
-                 <div className="comments"> </div>
+                        </div>)
+                        :
+                        ""
+                    }
                 </div>
               </div>
               <div className="productscreen__right">

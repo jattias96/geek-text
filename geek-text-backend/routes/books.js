@@ -50,10 +50,8 @@ router.route('/:id').get(async(req, res)=>{
 // Increment count of books sold
 router.route('/purchase/:id').patch(async(req, res)=>{
     try{
-        const _id = req.params.id;
-        const sold = req.body.sold;
-        const result = await Book.findByIdAndUpdate(_id,{
-            $inc:{sold: sold}
+        const result = await Book.findByIdAndUpdate(req.params.id,{
+            $inc:{sold: req.body.sold}
         });
         res.send(result);
     } catch (error){
