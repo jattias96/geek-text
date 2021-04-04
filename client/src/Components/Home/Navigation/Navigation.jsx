@@ -45,6 +45,13 @@ export const Navigation = () => {
                     </Link>
                 </div>
 
+                <div className="nav-right-addBook nav-link">
+                    <Link to="/wishlist" className="Router_Link">
+                        <h4 className="links">Wishlist(s)</h4>
+                    </Link>
+                </div>
+
+
                 <div className="nav-right-cart nav-link">
                     <Link to="/cart" className="Router_Link">
                         <div className="cartlogo_badge">{getCartCount()}</div>

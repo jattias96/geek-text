@@ -34,7 +34,8 @@ const bookSchema = new Schema({
             [
                 {
                     commenter: {
-                        type: String
+                        type: String, 
+                        default: "anonymous"
                     },
                     title: {
                         type: String

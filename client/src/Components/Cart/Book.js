@@ -7,9 +7,12 @@ import Rating from './Rating';
 import { addToCart } from "../../Redux/actions/cartActions";
 import Notification from "./UI/Notification";
 
-const Book = ({ cover, description, price, title, bookId, authorName, rating }) => {
+const Book = ({ cover, description, price, title, bookId, authorName, rating, authorId }) => {
 
   const dispatch = useDispatch();
+  
+  // Notification
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   // Add a new item to cart
   const addToCartNew = () => {
@@ -27,14 +30,11 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
     dispatch(addToCart(bookId, Number(currQty) + Number(1), false));
     setNotify({
       isOpen: true,
-      message: `"${title}" was updated in cart`,
+      message: `"${title} (x${Number(currQty) + Number(1)}) was added to cart`,
       type: 'success',
       typeStyle: 'specific'
     })
   };
-
-  // Notification
-  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   // Determine whether item is already existent in cart and handle add operation accordingly
   const cart = useSelector((state) => state.cart);
@@ -48,8 +48,9 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
 
 
   return (
+    <>
     <div className="product">
-      <div className="left__image">
+      <div className="center__image">
         <img src={cover} alt={title} />
       </div>
       <div className="product__info">
@@ -57,12 +58,15 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         <Link to={`/book/${bookId}`} className="cartItem__name">
           <p className="info__name">{title}</p>
         </Link>
-        <p className="info__author">By {authorName}</p>
+        <p className="info__author">By <Link to={`/authorbooks/${authorId}`}className="book__author__link">{authorName}</Link></p>
+       
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <Rating
-          value={rating}
-        />
-        <p className="info__description">{description}</p>
+        <div className="book__rating__stars">
+        <Rating value={rating}/> 
+        </div>
+        <div className="book__rating">({rating})</div>
+        
+        <div className="info__description">{description}</div>
         <p className="info__price">${parseFloat(price).toFixed(2)}</p>
       </div>
       <div className="browser_buttons">
@@ -72,12 +76,13 @@ const Book = ({ cover, description, price, title, bookId, authorName, rating }) 
         <button type="info__button" onClick={addToCartHandler}>
           <AddShoppingCartIcon fontSize="small" />
         </button>
-        <Notification
-          notify={notify}
-          setNotify={setNotify}
-        />
       </div>
     </div>
+    <Notification
+    notify={notify}
+    setNotify={setNotify}
+  />
+  </>
   );
 };
 

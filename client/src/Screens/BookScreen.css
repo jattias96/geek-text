@@ -1,4 +1,15 @@
-.productscreen {
+.book-cover {
+  float: left;
+  height: 400px;
+  width: auto;
+}
+
+.book-cover-large {
+  height: 650px;
+  width: auto;
+}
+
+/* .productscreen {
     max-width: 1300px;
     margin: 1rem auto;
     display: flex;
@@ -161,4 +172,4 @@
   .homescreen__products {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-  }
+  } */

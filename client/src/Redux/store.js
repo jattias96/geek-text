@@ -3,11 +3,15 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { cartReducer } from "./reducers/cartReducers";
 import { getBooksReducer, getBookDetailsReducer } from "./reducers/bookReducers";
+import { wishlistReducer } from "./reducers/wishlistReducers";
+import { getAuthorDetailsReducer } from "./reducers/authorReducers";
 
 const reducer = combineReducers({
   cart: cartReducer,
+  wishlist: wishlistReducer,
   getBooks: getBooksReducer,
   getBookDetails: getBookDetailsReducer,
+  getBooksByAuthor: getAuthorDetailsReducer,
 });
 
 const middleware = [thunk];
@@ -16,9 +20,17 @@ const cartItemsInLocalStorage = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : [];
 
+const wishlistItemsInLocalStorage = localStorage.getItem("wishlist")
+  ? JSON.parse(localStorage.getItem("wishlist"))
+  : [];
+
 const INITIAL_STATE = {
   cart: {
     cartItems: cartItemsInLocalStorage,
+  },
+
+  wishlist: {
+    wishlistItems: wishlistItemsInLocalStorage,
   },
 };
 
