@@ -1,5 +1,5 @@
 import "./BookScreen.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
@@ -8,18 +8,25 @@ import BookCoverModal from '../Modal/BookCoverModal';
 // import { determineGenre } from '../JonathanFiles/genreDeterminer';
 import { Link } from "react-router-dom";
 import MessageDialog from "../Components/Cart/UI/MessageDialog";
-import { CircularProgress } from '@material-ui/core';
-import Rating from '../Components/Cart/Rating';
+import { CircularProgress , TextField, Checkbox, Button} from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+//import Rating from '../Components/Cart/Rating';
 
 const BookScreen = ({ match, history }) => {
 
   const [show, setShow] = useState(false);
-  
+
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const bookDetails = useSelector((state) => state.getBookDetails);
   const { loading, error, book } = bookDetails;
   const [messageDialog, setMessageDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
+  const [value, setValue] = React.useState(0);
+  const [checked, setChecked] = React.useState(true);
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+};
 
   useEffect(() => {
     if (book && (match.params.id) !== book._id) {
@@ -101,75 +108,123 @@ const BookScreen = ({ match, history }) => {
         ) : error ? (
           <h2>{error}</h2>
         ) :
-          (
-            <>
-              <div className="productscreen__left">
-                <div className="small">
-                  <input type="image" src={book.cover} alt="book cover" className="book-cover" onClick={() => setShow(true)}/>
-                  <BookCoverModal title="Book Cover" onClose={() => setShow(false)} show={show}>
-                    <img src={book.cover} alt="book cover" className="book-cover-large"/>
-                  </BookCoverModal>
-                </div>
-                <div className="left__info">
-                  <div className="left__name"><div>{book.title}</div></div>
-                  <p>(Rating: {book.rating})</p>
-                  <h4>By <Link to={`/authorbooks/${authorID}`}>{book.authorName}</Link></h4>
-                  <p>Author Bio: {bio}</p>
-                  <p>Description: {book.description}</p>
-                  <p>Publisher: {publisher}</p>
-                  <p>ISBN: {isbn}</p>
-                  <p>Edition: {edition}</p>
-                  <p>sold: {book.sold}</p>
-                  <p>Genre: {genre}</p>
-             
-                  <div>Comments:</div>
+            (
+              <>
+                <div className="productscreen__left">
+                  <div className="small">
+                    <input type="image" src={book.cover} alt="book cover" className="book-cover" onClick={() => setShow(true)} />
+                    <BookCoverModal title="Book Cover" onClose={() => setShow(false)} show={show}>
+                      <img src={book.cover} alt="book cover" className="book-cover-large" />
+                    </BookCoverModal>
+                  </div>
+                  <div className="left__info">
+                    <div className="left__name"><div>{book.title}</div></div>
+                    <p><Rating name="half-rating-read" value={book.rating} precision={0.1} readOnly /> {book.rating} out of 5</p>
+                    <h4>By <Link to={`/authorbooks/${authorID}`}>{book.authorName}</Link></h4>
+                    <p>Author Bio: {bio}</p>
+                    <p>Description: {book.description}</p>
+                    <p>Publisher: {publisher}</p>
+                    <p>ISBN: {isbn}</p>
+                    <p>Edition: {edition}</p>
+                    <p>sold: {book.sold}</p>
+                    <p>Genre: {genre}</p>
+
+                    <div>Comments:</div>
                     {(book.comments) ?
                       (book.comments).map(comment =>
-                        <div className="comments"> 
+                        <div className="comments">
                           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
                           <div> <Rating value={comment.rating} />{comment.commenter}</div>
                           <h3>{comment.title}</h3>
                           <p>{comment.content}</p>
                         </div>)
-                        :
-                        ""
+                      :
+                      ""
                     }
+                  </div>
                 </div>
-              </div>
-              <div className="productscreen__right">
-                <div className="right__info">
-                  <p>
-                    Price:
+                <div className="productscreen__right">
+                  <div className="right__info">
+                    <p>
+                      Price:
                 <span>${parseFloat(book.price).toFixed(2)}</span>
-                  </p>
-                  <p>
-                    Qty:
+                    </p>
+                    <p>
+                      Qty:
                 <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                      {[...Array(100).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </p>
-                  <p>
-                    <button type="info__button" onClick={addToCartHandler}>
-                      Add to Cart
+                        {[...Array(100).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </p>
+                    <p>
+                      <button type="info__button" onClick={addToCartHandler}>
+                        Add to Cart
                 </button>
-                </p><p>
-                <button type="info__button" onClick={addToWishlistHandler}> 
-                      Add to Wishlist
-                </button> 
-                {/* change button to selector */}
-                    <MessageDialog
-                      messageDialog={messageDialog}
-                      setMessageDialog={setMessageDialog}
-                    />
-                  </p>
+                <p>
+                      <button type="info__button" onClick={addToWishlistHandler}>
+                        Add to Wishlist
+                </button>
+
+                      {/* change button to selector */}
+                      <MessageDialog
+                        messageDialog={messageDialog}
+                        setMessageDialog={setMessageDialog}
+                      />
+                    </p>
+                    </p>
+                    <h2>Review this book</h2>
+                    <h3>Place a Rating</h3>
+                    <div>
+                      <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                          setValue(newValue);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>Place a Comment</h3>
+                      <label>Enter your name here</label>
+                      <input type="text" name="name" required />
+                      <TextField
+                        id="outlined-textarea"
+                        placeholder="Leave your review here."
+                        multiline
+                        variant="outlined"
+                        rows={5}
+                        style={{
+                          width: 800,
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h3>Would you like to be anonymous?
+                <Checkbox
+                          checked={checked}
+                          onChange={handleChange}
+                          inputProps={{ 'aria-label': 'primary checkbox' }}
+                        />
+                      </h3>
+                    </div>
+                    <div>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                          margin_left: 300
+                        }}
+                      >
+                        Submit
+</Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </>
-          )
+              </>
+            )
       }
     </div>
   );
