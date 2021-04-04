@@ -26,7 +26,6 @@ export default class Browser extends React.Component {
     }
   
     
-    //Get Books from db
     componentDidMount() {
 
         this.sortByTS();
@@ -225,20 +224,20 @@ export default class Browser extends React.Component {
             filter: {genre: "60316e2ceda4ea0a72158abf"},
             genreDD: "Fiction",
             ratingDD: "All"
-        })
-
-        this.sortByTS()
+        },this.sortByTS()
+         )
+         
+        
     }
-
     filterByNF(){ // non-fiction
         this.setState({
             
                 filter: {genre: "6047f6de2b677f17622ae060"},
                 genreDD: "NF",
                 ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
     }
 
     filterByAll(){
@@ -248,9 +247,10 @@ export default class Browser extends React.Component {
                 ratingDD: "All",
                 genreDD: "All"
             
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     filterByFantasy(){
@@ -258,9 +258,10 @@ export default class Browser extends React.Component {
             filter: {genre: "60309fdc5aa8bc214f4a9b9d"},
             genreDD: "Fantasy",
             ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
     
     filterByPoetry(){
@@ -268,9 +269,10 @@ export default class Browser extends React.Component {
             filter: {genre: "6047ec6c9c6672143d0e36aa"},
             genreDD: "Poetry",
             ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     filterByAB(){ // Autobiography
@@ -278,9 +280,10 @@ export default class Browser extends React.Component {
             filter: {genre: "6056918441e30718cfa06152"},
             genreDD: "AB",
             ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     filterByHumour(){
@@ -288,9 +291,10 @@ export default class Browser extends React.Component {
             filter: {genre: "605679b341e30718cfa06143"},
             genreDD: "Humour",
             ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     filterByNovel(){
@@ -298,9 +302,10 @@ export default class Browser extends React.Component {
             filter: {genre: "6057548c7cb1dc2899337811"},
             genreDD: "Novel",
             ratingDD: "All"
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     filterByFive(){
@@ -308,8 +313,9 @@ export default class Browser extends React.Component {
             filter: {rating: 5},
             ratingDD: "5",
             genreDD: "All"
-        })
-        this.sortByTS()
+        }, this.sortByTS()
+        )
+        
     }
 
     filterByFourPlus(){
@@ -317,8 +323,9 @@ export default class Browser extends React.Component {
             filter: {rating: {$gte: 4}},
             ratingDD: "4",
             genreDD: "All"
-        })
-        this.sortByTS()
+        }, this.sortByTS()
+        )
+        
     }
 
     filterByThreePlus(){
@@ -326,8 +333,9 @@ export default class Browser extends React.Component {
             filter: {rating: {$gte: 3}},
             ratingDD: "3",
             genreDD: "All"
-        })
-        this.sortByTS()
+        }, this.sortByTS()
+        )
+        
     }
 
     filterByTwoPlus(){
@@ -335,8 +343,9 @@ export default class Browser extends React.Component {
             filter: {rating: {$gte: 2}},
             ratingDD: "2",
             genreDD: "All"
-        })
-        this.sortByTS()
+        }, this.sortByTS()
+        )
+        
     }
 
     filterByOnePlus(){
@@ -344,24 +353,27 @@ export default class Browser extends React.Component {
             filter: {rating: {$gte: 1}},
             ratingDD: "1",
             genreDD: "All"
-        })
-        this.sortByTS()
+        }, this.sortByTS()
+        )
+        
     }
 
     setTenPerPage(){
         this.setState({
             perPage: 10
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
 
     setTwentyPerPage(){
         this.setState({
             perPage: 20
-        })
+        }, this.sortByTS()
+        )
 
-        this.sortByTS()
+        
     }
     
 
