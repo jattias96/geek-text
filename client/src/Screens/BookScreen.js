@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBookDetails } from "../Redux/actions/bookActions";
 import { addToCart } from "../Redux/actions/cartActions";
+import { addToWishlist } from "../Redux/actions/wishlistActions";
 import BookCoverModal from '../Modal/BookCoverModal';
 // import { determineGenre } from '../JonathanFiles/genreDeterminer';
 import { Link } from "react-router-dom";
@@ -76,6 +77,15 @@ const BookScreen = ({ match, history }) => {
     })
   };
 
+
+  const addToWishlistHandler = () => {
+    dispatch(addToWishlist(book._id));
+    history.push(`/wishlist/`);
+    //add parameter and concatinate to push path after "...wishlist/"
+  };
+
+
+
   const publisher = ((book || {}).publishingInfo || {}).publisher;
   const isbn = ((book || {}).publishingInfo || {}).isbn;
   const edition = ((book || {}).publishingInfo || {}).edition;
@@ -145,10 +155,12 @@ const BookScreen = ({ match, history }) => {
                   <p>
                     <button type="info__button" onClick={addToCartHandler}>
                       Add to Cart
-                    </button>
-                    <button>
-                      Add to Wish List
-                    </button> {/* onClick={addToWishList} */}
+                </button>
+                </p><p>
+                <button type="info__button" onClick={addToWishlistHandler}> 
+                      Add to Wishlist
+                </button> 
+                {/* change button to selector */}
                     <MessageDialog
                       messageDialog={messageDialog}
                       setMessageDialog={setMessageDialog}
@@ -164,3 +176,4 @@ const BookScreen = ({ match, history }) => {
 };
 
 export default BookScreen;
+
