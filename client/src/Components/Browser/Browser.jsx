@@ -16,9 +16,9 @@ export default class Browser extends React.Component {
         this.state = {
             allBooks: [],
             books: [],
-            page: Number = 1, 
-            lastPage: Number = 100,
-            perPage: Number = 10,
+            page: Number(1), 
+            lastPage: Number(100),
+            perPage: Number(10),
             filter: {},
             genreDD: "All", // genre select Value for filter
             ratingDD: "All",// Rating select Value for filter
@@ -491,7 +491,7 @@ render(){
     </div>
     </div>
     <div className="card">
-                        <p>{this.state.books.map((book) => (
+                       {this.state.books.map((book) => (
             <Book
               key={book._id}
               title={book.title}
@@ -499,12 +499,12 @@ render(){
               rating={book.rating}
               cover={book.cover}
               bookId={book._id}
-              author={book.author}
+              authorId={book.author}
               authorName={book.authorName}
             />
           ),{
                         })}
-                            </p>
+                        
                         
     </div>
     <div className="nav">

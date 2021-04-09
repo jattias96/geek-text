@@ -1,6 +1,6 @@
 import "./WishlistItem.css"
 import { Link } from "react-router-dom";
-import Rating from '../Cart/Rating';
+import Rating from '@material-ui/lab/Rating';
 
 const WishlistItem = ({ item, removeHandler, addToCartHandler, bookId, moveToWishlistHandler }) => {
 
@@ -18,14 +18,24 @@ const WishlistItem = ({ item, removeHandler, addToCartHandler, bookId, moveToWis
             <Link to={`/book/${bookId}`} className="cartItem__name">
               {item.title}
             </Link>
-            <div className="cartItem__author">
-              By {item.authorName}
-            </div>
+            <div className="cartItem___author">
+                By <Link to={`/authorbooks/${item.author._id}`} className="cartItem__author__link">{item.authorName}</Link>
+              </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-           <Rating
-              value={item.rating}
-            className="rating"/>
+            <div className="rating__block">
+            <div className="book__rating__stars">
+                  < Rating
+                    name="half-rating-read"
+                    value={item.rating}
+                    precision={0.1}
+                    readOnly
+                    size="small"
+                  />
+                </div>
+                <div className="book__rating">{parseFloat(item.rating).toFixed(1)}</div>
+            </div>
+            < br/>
             <div id="price_Column"
               className="wishlistitem__price">${parseFloat(item.price).toFixed(2)}
             </div>

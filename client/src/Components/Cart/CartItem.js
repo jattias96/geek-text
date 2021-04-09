@@ -1,6 +1,6 @@
 import "./CartItem.css";
 import { Link } from "react-router-dom";
-import Rating from './Rating';
+import Rating from '@material-ui/lab/Rating';
 
 const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, addBackToCartHandler, saved, bookId }) => {
 
@@ -19,17 +19,24 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
               <Link to={`/book/${bookId}`} className="cartItem__name">
                 {item.title}
               </Link>
-              
-              <div className="cartItem__author">
-                By <Link to={`/authorbooks/${item.author._id}`}className="cartItem__author__link">{item.authorName}</Link>
+
+              <div className="cartItem___author">
+                By <Link to={`/authorbooks/${item.author._id}`} className="cartItem__author__link">{item.authorName}</Link>
               </div>
-              <div className="rating_Cart">
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-              <div className="book__rating__stars">
-        <Rating value={item.rating}/> 
-        </div>
-        <div className="book__rating">({item.rating})</div>
+              <div className="rating__block">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <div className="book__rating__stars">
+                  < Rating
+                    name="half-rating-read"
+                    value={item.rating}
+                    precision={0.1}
+                    readOnly
+                    size="small"
+                  />
+                </div>
+                <div className="book__rating">{parseFloat(item.rating).toFixed(1)}</div>
               </div>
+              < br />
               <button className="saveforlater_button"
                 onClick={() => saveForLaterHandler(item.book, item.qty)}>
                 Save for later
@@ -73,15 +80,25 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, saveForLaterHandler, 
             <Link to={`/book/${bookId}`} className="cartItem__name">
               {item.title}
             </Link>
-            <div className="cartItem__author">
-                {/* TODO: link to author page */}
-                By <div className="cartItem__author__link">{item.authorName}</div>
-              </div>
+            <div className="cartItem___author">
+              By <Link to={`/authorbooks/${item.author._id}`} className="cartItem__author__link">{item.authorName}</Link>
+            </div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-              
-           <Rating
-              value={item.rating}
-            className="rating"/>
+
+            <div className="rating__block">
+              <div className="book__rating__stars">
+                < Rating
+                  name="half-rating-read"
+                  value={item.rating}
+                  precision={0.1}
+                  readOnly
+                  size="small"
+                />
+              </div>
+              <div className="book__rating">{parseFloat(item.rating).toFixed(1)}</div>
+            </div>
+
+
             <div className="cartitem__price_saved">${parseFloat(item.price).toFixed(2)}</div>
             <button className="saveforlater_button"
               onClick={() => addBackToCartHandler(item.book, item.qty)}>
