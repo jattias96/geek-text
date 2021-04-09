@@ -126,7 +126,6 @@ const BookScreen = ({ match, history }) => {
                     <p>Publisher: {publisher}</p>
                     <p>ISBN: {isbn}</p>
                     <p>Edition: {edition}</p>
-                    <p>sold: {book.sold}</p>
                     <p>Genre: {genre}</p>
 
                     <div>Comments:</div>
@@ -163,7 +162,7 @@ const BookScreen = ({ match, history }) => {
                       <button type="info__button" onClick={addToCartHandler}>
                         Add to Cart
                 </button>
-                <p>
+                < br/>
                       <button type="info__button" onClick={addToWishlistHandler}>
                         Add to Wishlist
                 </button>
@@ -173,7 +172,6 @@ const BookScreen = ({ match, history }) => {
                         messageDialog={messageDialog}
                         setMessageDialog={setMessageDialog}
                       />
-                    </p>
                     </p>
                     <h2>Review this book</h2>
                     <h3>Place a Rating</h3>

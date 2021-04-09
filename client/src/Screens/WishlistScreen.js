@@ -109,7 +109,7 @@ const WishlistScreen = ({history}) => {
 
               :
               (wishlistItems.map((item) => (
-                <div>
+                <div key={item.book}>
                   <WishlistItem
                     key={item.book}
                     item={item}

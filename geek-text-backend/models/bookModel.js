@@ -92,7 +92,13 @@ const bookSchema = new Schema({
         max: 5,
         min: 0,
         default: 0
-    }
+    },
+
+    numComments: { 
+        type: Number, 
+        default: 0, 
+        required: true 
+    },
 
 });
 

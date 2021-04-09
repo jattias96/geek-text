@@ -142,28 +142,26 @@ const CartScreen = () => {
                   </Link>
                 </div>)
           )
-            : (inCart.map((item) => (
-              <div>
-                <CartItem
-                  key={item.book}
-                  item={item}
-                  qtyChangeHandler={qtyChangeHandler}
-                  removeHandler={removeFromCartHandler}
-                  saveForLaterHandler={saveForLaterHandler}
-                  addBackToCartHandler={addBackToCartHandler}
-                  saved={false}
-                  bookId={item.book}
-                />
-                <hr />
-              </div>
-            )))}
-
-{/* Subtotal ({getCartCount()}) {getCartCount()}?(item:) : (items:) */}
-
-
+            :
+            (
+              inCart.map((item) => (
+                <div key={item.book}>
+                  <CartItem
+                    key={item.book}
+                    item={item}
+                    qtyChangeHandler={qtyChangeHandler}
+                    removeHandler={removeFromCartHandler}
+                    saveForLaterHandler={saveForLaterHandler}
+                    addBackToCartHandler={addBackToCartHandler}
+                    saved={false}
+                    bookId={item.book}
+                  />
+                  <hr />
+                </div>
+              )))}
 
           <div className="right-subtotal">
-            Subtotal ({getCartCount()}) {getCartCount() === 1? <>item:</> : <>items:</>}
+            Subtotal ({getCartCount()}) {getCartCount() === 1 ? <>item:</> : <>items:</>}
             <div className="subtotal">&emsp;&emsp;${getCartSubTotal()}
             </div>
             <div></div>
@@ -188,7 +186,7 @@ const CartScreen = () => {
             </div>
             <div className="cartscreen__info_saved">
               {savedForLater.map((item) => (
-                <div>
+                <div key={item.book}>
                   <CartItem
                     key={item.book}
                     item={item}
@@ -204,7 +202,7 @@ const CartScreen = () => {
               )
               )}
               <div className="number_of_items_saved">
-                ({getSavedCount()}) {getSavedCount() === 1? <>item:</> : <>items:</>}
+                ({getSavedCount()}) {getSavedCount() === 1 ? <>item:</> : <>items:</>}
               </div>
             </div>
           </div>

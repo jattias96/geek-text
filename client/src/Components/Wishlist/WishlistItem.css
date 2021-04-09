@@ -21,6 +21,9 @@
   .cartItem__name:hover {
     color: #7A9EA7;
   }
+  .rating_wishlist{
+    margin-top: 3px;
+  }
 
   .cartItem__select {
     padding: 10px 10px;
