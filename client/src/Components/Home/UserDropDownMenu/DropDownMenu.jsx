@@ -19,7 +19,7 @@ export const DropDownMenu = () => {
 
     return (
         <div className="drop-down-menu">
-            <Link to="./dashboard" className="Router__link">
+            <Link to="/dashboard" className="Router__link">
                 {/*Allows the link to return to black color after clicking*/}
                 <div className="menu-option">
                     <DashboardIcon/>
