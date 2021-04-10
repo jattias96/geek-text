@@ -6,6 +6,8 @@ import AuthRoute from './routes/users.js'
 import booksRouter from './routes/books.js'
 import genresRouter from './routes/genres.js'
 import authorsRouter from './routes/authors.js'
+import AccountManager from './routes/AccountManager/AccountManger.js';
+import LoggingCredentials from './routes/LoggingCredentials/LoggingCredentialsManager.js';
 const server = express();
 dotenv.config(); 
 //============================================Middlewares==========================================
@@ -34,6 +36,10 @@ server.use('/books', booksRouter);
 server.use('/genres', genresRouter);
 
 server.use('/authors', authorsRouter);
+
+server.use(AccountManager);
+
+server.use(LoggingCredentials);
 //===================================Server connection & Configs===================================
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
