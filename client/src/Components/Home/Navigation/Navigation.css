@@ -33,7 +33,11 @@
 .nav-link{
     margin-right: 1.5rem;
     cursor: pointer; /*Clickable property*/
-    
+}
+
+.nav-link-user{
+    margin-right: 1.5rem;
+    cursor: pointer;
 }
 
 .nav-link:hover{
