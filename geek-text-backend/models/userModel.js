@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 import {creditCardSchema} from './creditCard.js';
 import {shippingAddressSchema} from './ShippingAddress.js';
+const Schema = mongoose.Schema;
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
