@@ -41,23 +41,24 @@ export const Navigation = () => {
                     <h4 className="links">View Books</h4>
                     </Link>
                 </div>
-
+                {
+                    token ? null : 
                 <div className="nav-right-auth nav-link">
-                    {
-                    token ? null : <Link to="/auth" className="Router_Link">
+                    <Link to="/auth" className="Router_Link">
                         <h4 className="links">Sign-up/Sign-in</h4>
                     </Link>
-                } </div>
+                 </div>
+                 }
 
-                <div className="nav-right-addBook nav-link">
+                {/* <div className="nav-right-addBook nav-link">
                     <Link to="/listofbooks" className="Router_Link">
                         <h4 className="links">Add New Book</h4>
                     </Link>
-                </div>
+                </div> */}
 
                 <div className="nav-right-addBook nav-link">
                     <Link to="/wishlist" className="Router_Link">
-                        <h4 className="links">Wishlist(s)</h4>
+                        <h4 className="links">Wishlist</h4>
                     </Link>
                 </div>
                 {

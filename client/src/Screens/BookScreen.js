@@ -139,7 +139,7 @@ const BookScreen = ({ match, history }) => {
                       (book.comments).map(comment =>
                         <div className="comments">
                           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-                          <div> <Rating value={comment.rating} />{comment.commenter}</div>
+                          <div> <Rating value={comment.rating} precision={0.1} readOnly />{comment.commenter} </div>
                           <h3>{comment.title}</h3>
                           <p>{comment.content}</p>
                         </div>)
@@ -168,9 +168,9 @@ const BookScreen = ({ match, history }) => {
                       <button type="info__button" onClick={addToCartHandler}>
                         Add to Cart
                 </button>
-                      < br />
-                      <button type="info__button" onClick={addToWishlistHandler}>
-                        Add to Wishlist
+                < br/>
+                      <button type="info__button" className="wish_button" onClick={addToWishlistHandler}>
+                      &#10084;&#65039;
                 </button>
 
                       {/* change button to selector */}

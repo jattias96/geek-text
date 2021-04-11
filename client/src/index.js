@@ -8,7 +8,7 @@ import store from './Redux/store'
 //This is used to embeded the app into the browser
 ReactDOM.render(
   <Provider store={store} >
-    <App />,
+    <App />
   </Provider>,
   document.getElementById('root')
 );

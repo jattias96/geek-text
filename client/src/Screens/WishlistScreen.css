@@ -47,7 +47,15 @@
     position:inherit;
   }
     
-  .cartscreen hr {
+  /* .cartscreen hr { */
+  
+  .wishtocart{
+    position: inherit;
+    margin-left: 4rem;
+    background-color:#7A9EA7;
+  }
+    
+  hr {
     border: none;
     height: 1px;
     align-items: center;
@@ -128,6 +136,7 @@
   .centered_cart {
     text-align: center;
     margin: 4rem;
+    
   }
   
   .cart_button_checkout[disabled]:hover {
@@ -155,3 +164,9 @@
     margin-top: 4rem;
     margin-bottom: 4rem;
   }
+
+
+
+ .wishlist_title{
+   font-family: cursive;
+ }

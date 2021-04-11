@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import CartItem from "../Components/Cart/CartItem";
 import Notification from "../Components/Cart/UI/Notification";
 import ConfirmDialog from "../Components/Cart/UI/ConfirmDialog";
+import SignInFirstDialog from "../Components/Cart/UI/SignInFirstDialog";
 import { addToCart, removeFromCart } from "../Redux/actions/cartActions";
 import axios from "axios";
 
 
-const CartScreen = () => {
+const CartScreen = (props) => {
 
   useEffect(() => { }, []);
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const CartScreen = () => {
   // Confirm Dialog
   const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', subTitle: '' })
 
+  // Signin First Dialog
+  const [signInFirstDialog, setSignInFirstDialog] = useState({ isOpen: false, title: '', subTitle: '' })
+
   // Notification
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '', typeStyle: '' });
 
@@ -27,6 +31,9 @@ const CartScreen = () => {
 
   // Items in cart (not including saved for later)
   const inCart = cartItems.filter(({ saved }) => saved === false);
+
+  // User token
+  const token = localStorage.getItem('token') || false;
 
   // Change quantity of item
   const qtyChangeHandler = (id, qty) => {
@@ -80,11 +87,17 @@ const CartScreen = () => {
 
   // Checkout all books in cart and display success message
   const checkoutHandler = () => {
+    token ?
     setConfirmDialog({
       isOpen: true,
       title: 'Are you sure you want to checkout?',
       subTitle: "You can't undo this operation",
       onContinue: () => { onContinue() }
+    }):
+    setSignInFirstDialog({
+      isOpen: true,
+      title: 'You are not signed in',
+      subTitle: 'Please sign in before checkout',
     })
   }
 
@@ -121,7 +134,7 @@ const CartScreen = () => {
                 <h1>Your Shopping Cart Is Empty!</h1>
                 <p></p>
                 <p>But you have some items saved for later...</p>
-                <Link to="/listofbooks" className="Router_Link">
+                <Link to="/browse">
                   <div className="cart_button">
                     <p>Continue Shopping</p>
                   </div>
@@ -135,7 +148,7 @@ const CartScreen = () => {
                   <p></p>
                   <p>Add some books!</p>
                   <div></div>
-                  <Link to="/listofbooks" className="Router_Link">
+                  <Link to="/browse">
                     <div className="cart_button">
                       <p>Start Shopping</p>
                     </div>
@@ -176,6 +189,10 @@ const CartScreen = () => {
               confirmDialog={confirmDialog}
               setConfirmDialog={setConfirmDialog}
             />
+            <SignInFirstDialog
+            signInFirstDialog={signInFirstDialog}
+            setSignInFirstDialog={setSignInFirstDialog}
+          />
           </div>
         </div>
 
