@@ -57,7 +57,7 @@ export const Navigation = () => {
 
                 <div className="nav-right-addBook nav-link">
                     <Link to="/wishlist" className="Router_Link">
-                        <h4 className="links">Wishlist(s)</h4>
+                        <h4 className="links">Wishlist</h4>
                     </Link>
                 </div>
                 {

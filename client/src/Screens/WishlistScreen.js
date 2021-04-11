@@ -89,7 +89,7 @@ const WishlistScreen = ({history}) => {
     <>
       <div className="cartscreen">
         <div className="centered_cart">
-          <h2>Wishlist</h2>
+          <h1 className="wishlist_title"><b>Wishlist</b></h1>
         </div>
         <div className="cartscreen__info">
 
@@ -97,10 +97,10 @@ const WishlistScreen = ({history}) => {
 
             wishlistItems.length === 0 ?
               (<div className="cartscreen__center">
-                <h1>Your Wishlist is Empty!</h1>
+                <h2>Your Wishlist is Empty!</h2>
                 <Link to="/listofbooks" className="Router_Link">
                   <div className="cart_button">
-                    <p>Continue Shopping</p>
+                    <p>Continue Wishing...</p>
                   </div>
                 </Link>
 

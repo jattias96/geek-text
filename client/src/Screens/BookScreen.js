@@ -163,8 +163,8 @@ const BookScreen = ({ match, history }) => {
                         Add to Cart
                 </button>
                 < br/>
-                      <button type="info__button" onClick={addToWishlistHandler}>
-                        Add to Wishlist
+                      <button type="info__button" className="wish_button" onClick={addToWishlistHandler}>
+                      &#10084;&#65039;
                 </button>
 
                       {/* change button to selector */}
