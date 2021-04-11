@@ -76,7 +76,6 @@ router.route('/:id').get(async(req, res)=>{
     .then(book => res.json(book))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
 // Increment count of books sold
 router.route('/purchase/:id').patch(async(req, res)=>{
     try{
