@@ -9,6 +9,16 @@
   width: auto;
 }
 
+
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid green;
+}
 .wish_button{
   font-family:cursive;
   font-weight: bolder;

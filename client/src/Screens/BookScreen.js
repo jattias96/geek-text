@@ -8,12 +8,14 @@ import BookCoverModal from '../Modal/BookCoverModal';
 // import { determineGenre } from '../JonathanFiles/genreDeterminer';
 import { Link } from "react-router-dom";
 import MessageDialog from "../Components/Cart/UI/MessageDialog";
-import { CircularProgress , TextField, Checkbox, Button} from '@material-ui/core';
+import { CircularProgress, TextField, Checkbox, Button } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 //import Rating from '../Components/Cart/Rating';
+import { useParams } from "react-router";
 
 const BookScreen = ({ match, history }) => {
 
+  const { id } = useParams();
   const [show, setShow] = useState(false);
 
   const [qty, setQty] = useState(1);
@@ -26,7 +28,7 @@ const BookScreen = ({ match, history }) => {
   const [checked, setChecked] = React.useState(true);
   const handleChange = (event) => {
     setChecked(event.target.checked);
-};
+  };
 
   useEffect(() => {
     if (book && (match.params.id) !== book._id) {
@@ -91,6 +93,10 @@ const BookScreen = ({ match, history }) => {
     //add parameter and concatinate to push path after "...wishlist/"
   };
 
+  //handles going to the review page
+  const createReviewHandler = () => {
+    history.push(`/book/` + match.params.id + "/reviews");
+  }
 
 
   const publisher = ((book || {}).publishingInfo || {}).publisher;
@@ -173,58 +179,13 @@ const BookScreen = ({ match, history }) => {
                         setMessageDialog={setMessageDialog}
                       />
                     </p>
-                    <h2>Review this book</h2>
-                    <h3>Place a Rating</h3>
-                    <div>
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h3>Place a Comment</h3>
-                      <label>Enter your name here</label>
-                      <input type="text" name="name" required />
-                      <TextField
-                        id="outlined-textarea"
-                        placeholder="Leave your review here."
-                        multiline
-                        variant="outlined"
-                        rows={5}
-                        style={{
-                          width: 800,
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h3>Would you like to be anonymous?
-                <Checkbox
-                          checked={checked}
-                          onChange={handleChange}
-                          inputProps={{ 'aria-label': 'primary checkbox' }}
-                        />
-                      </h3>
-                    </div>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        style={{
-                          margin_left: 300
-                        }}
-                      >
-                        Submit
-</Button>
-                    </div>
-                  </div>
+                    <button onClick={createReviewHandler}> Create Customer Review</button>
                 </div>
+              </div>
               </>
-            )
-      }
-    </div>
+  )
+}
+    </div >
   );
 };
 
