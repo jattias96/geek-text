@@ -21,9 +21,9 @@ function ReviewScreen({ match, history }) {
         }
       }, [dispatch, book, match]);
 
-var comments = book.comments;
-      console.log(JSON.stringify(comments));      
-      const [reviewList, setReviewList] = useState(comments);
+//var comments = book.comments;
+      //console.log(JSON.stringify(comments));      
+      const [reviewList, setReviewList] = useState([]);
 
     const addReview = (
         titleInput,

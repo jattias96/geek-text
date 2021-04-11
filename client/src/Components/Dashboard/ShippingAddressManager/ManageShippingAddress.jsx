@@ -147,7 +147,7 @@ export const ManageShippingAddress = () => {
                     <span className="btn-cancel"
                         onClick={getDataPay}>
                         {/*Inline element*/}
-                        Cancel
+                        Show
                     </span>
                 </p>
             </form>
