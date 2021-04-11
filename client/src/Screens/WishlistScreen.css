@@ -47,7 +47,15 @@
     position:inherit;
   }
     
-  .cartscreen hr {
+  /* .cartscreen hr { */
+  
+  .wishtocart{
+    position: inherit;
+    margin-left: 4rem;
+    background-color:#7A9EA7;
+  }
+    
+  hr {
     border: none;
     height: 1px;
     align-items: center;

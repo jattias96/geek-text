@@ -12,6 +12,7 @@ import MessageDialog from "../Components/Cart/UI/MessageDialog";
 const WishlistScreen = ({history}) => {
 
 
+
   useEffect(() => { }, []);
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.wishlist);
@@ -19,7 +20,6 @@ const WishlistScreen = ({history}) => {
   const [messageDialog, setMessageDialog] = useState({ isOpen: false, title: '', subTitle: '' })
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
 
   // Add item from wishlist to shopping cart
   const addToCartNew = (id) => {
@@ -100,7 +100,7 @@ const WishlistScreen = ({history}) => {
                 <h2>Your Wishlist is Empty!</h2>
                 <Link to="/listofbooks" className="Router_Link">
                   <div className="cart_button">
-                    <p>Continue Wishing...</p>
+                    <p>Keep Shopping</p>
                   </div>
                 </Link>
 

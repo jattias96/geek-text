@@ -49,7 +49,7 @@ export const Navigation = () => {
                     </Link>
                 } </div>
 
-                <div className="nav-right-addBook nav-link">
+                <div className="nav-right-wishlist nav-link">
                     <Link to="/listofbooks" className="Router_Link">
                         <h4 className="links">Add New Book</h4>
                     </Link>
