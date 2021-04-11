@@ -10,6 +10,7 @@ import BookScreen from "./Screens/BookScreen";
 import ListAllBooks from "./Screens/ListAllBooks";
 import WishlistScreen from "./Screens/WishlistScreen";
 import AuthorBooksScreen from './Screens/AuthorBooksScreen';
+import ReviewScreen from './Screens/ReviewScreen';
 
 import { SideBar } from './Components/Dashboard/SideBar/SideBar'
 import { DashboardHome } from './Components/Dashboard/DashboardHome'
@@ -129,6 +130,8 @@ function App() {
 
         <Route exact path='/listofbooks' component={ListAllBooks} />
         <Route exact path='/authorbooks/:id' component={AuthorBooksScreen} />
+
+        <Route exact path='/book/:id/reviews' component={ReviewScreen} />
       </Switch>
     </Router>
   );

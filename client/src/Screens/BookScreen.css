@@ -9,6 +9,18 @@
   width: auto;
 }
 
+
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid green;
+}
+
+
 /* .productscreen {
     max-width: 1300px;
     margin: 1rem auto;

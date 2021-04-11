@@ -1,55 +1,63 @@
 import React, { useState, useEffect } from "react";
+//components
+//import Header from "./Header";
+import ReviewList from "../Components//Reviews/ReviewList";
+import ReviewForm from "../Components/Reviews/ReviewForm";
+import Button from "@material-ui/lab/Rating";
+import { getBookDetails } from "../Redux/actions/bookActions";
+import { useSelector, useDispatch } from "react-redux";
 
-const ReviewScreen = ({}) => {
+function ReviewScreen({ match, history }) {
+    const bookDetails = useSelector((state) => state.getBookDetails);
+    const { loading, error, book } = bookDetails;
+    const dispatch = useDispatch();
+    const backToBook = () => {
+        history.push(`/book/` + match.params.id );
+      }
+    
+    useEffect(() => {
+        if (book && (match.params.id) !== book._id) {
+          dispatch(getBookDetails(match.params.id));
+        }
+      }, [dispatch, book, match]);
 
+var comments = book.comments;
+      console.log(JSON.stringify(comments));      
+      const [reviewList, setReviewList] = useState(comments);
+
+    const addReview = (
+        titleInput,
+        commenterInput,
+        ratingInput,
+        contentInput,
+        anonymousInput
+    ) => {
+        let copy = [...reviewList];
+        copy = [
+            ...copy,
+            {
+                id: reviewList.length + 1,
+                title: titleInput,
+                commenter: commenterInput,
+                rating: ratingInput,
+                content: contentInput,
+                anonymous: anonymousInput
+            }
+        ];
+        //at this point I have to be able to push back the new data into the array
+        //or moreso from the backend
+        setReviewList(copy);
+        console.log(JSON.stringify(copy));
+    };
     return (
-        <div>
-        <h2>Review this book</h2>
-                    <h3>Place a Rating</h3>
-                    <div>
-                      <Rating
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                          setValue(newValue);
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h3>Place a Comment</h3>
-                      <label>Enter your name here</label>
-                      <input type="text" name="name" required />
-                      <TextField
-                        id="outlined-textarea"
-                        placeholder="Leave your review here."
-                        multiline
-                        variant="outlined"
-                        rows={5}
-                        style={{
-                          width: 800,
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h3>Would you like to be anonymous?
-                <Checkbox
-                          checked={checked}
-                          onChange={handleChange}
-                          inputProps={{ 'aria-label': 'primary checkbox' }}
-                        />
-                      </h3>
-                    </div>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        style={{
-                          margin_left: 300
-                        }}
-                      >
-                        Submit
-</Button>
-                    </div>
-                    </div>
-    )
+        <div className="ReviewScreen">
+        <button onClick={backToBook}>Back to Book</button>
+            <h1>Add a Review</h1>
+            <ReviewForm addReview={addReview} />
+            <h1>Reviews List</h1>
+            <ReviewList reviewList={reviewList} />
+        </div>
+    );
 }
+
+export default ReviewScreen;
