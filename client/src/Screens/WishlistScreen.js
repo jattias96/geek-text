@@ -59,7 +59,7 @@ const WishlistScreen = ({history}) => {
       ...messageDialog,
       isOpen: false
     })
-    history.push(`/cart/`);
+    history.push(`/cart`);
   }
 
   // Close dialog and stay in current page
@@ -97,8 +97,8 @@ const WishlistScreen = ({history}) => {
 
             wishlistItems.length === 0 ?
               (<div className="cartscreen__center">
-                <h2>Your Wishlist is Empty!</h2>
-                <Link to="/listofbooks" className="Router_Link">
+                <h1>Your Wishlist is Empty!</h1>
+                <Link to="/browse" className="Router_Link">
                   <div className="cart_button">
                     <p>Keep Shopping</p>
                   </div>

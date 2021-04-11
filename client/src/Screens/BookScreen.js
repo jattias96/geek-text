@@ -133,7 +133,7 @@ const BookScreen = ({ match, history }) => {
                       (book.comments).map(comment =>
                         <div className="comments">
                           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-                          <div> <Rating value={comment.rating} />{comment.commenter}</div>
+                          <div> <Rating value={comment.rating} precision={0.1} readOnly />{comment.commenter} </div>
                           <h3>{comment.title}</h3>
                           <p>{comment.content}</p>
                         </div>)
