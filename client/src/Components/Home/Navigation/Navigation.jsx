@@ -38,13 +38,6 @@ export const Navigation = () => {
                         <h4 className="links">Sign-up/Sign-in</h4>
                     </Link>
                 </div>
-
-                <div className="nav-right-addBook nav-link">
-                    <Link to="/listofbooks" className="Router_Link">
-                        <h4 className="links">Add New Book</h4>
-                    </Link>
-                </div>
-
                 <div className="nav-right-addBook nav-link">
                     <Link to="/wishlist" className="Router_Link">
                         <h4 className="links">Wishlist(s)</h4>

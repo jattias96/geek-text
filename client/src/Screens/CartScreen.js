@@ -121,7 +121,7 @@ const CartScreen = () => {
                 <h1>Your Shopping Cart Is Empty!</h1>
                 <p></p>
                 <p>But you have some items saved for later...</p>
-                <Link to="/listofbooks" className="Router_Link">
+                <Link to="/browse" className="Router_Link">
                   <div className="cart_button">
                     <p>Continue Shopping</p>
                   </div>
@@ -135,7 +135,7 @@ const CartScreen = () => {
                   <p></p>
                   <p>Add some books!</p>
                   <div></div>
-                  <Link to="/listofbooks" className="Router_Link">
+                  <Link to="/browse" className="Router_Link">
                     <div className="cart_button">
                       <p>Start Shopping</p>
                     </div>

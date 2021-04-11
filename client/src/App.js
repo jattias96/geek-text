@@ -10,6 +10,7 @@ import BookScreen from "./Screens/BookScreen";
 import ListAllBooks from "./Screens/ListAllBooks";
 import WishlistScreen from "./Screens/WishlistScreen";
 import AuthorBooksScreen from './Screens/AuthorBooksScreen';
+import ReviewScreen from './Screens/ReviewScreen'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           </Route>
 
           <Route exact path='/book/:id' component={BookScreen} />
+          <Route exact path='/book/:id/review' component={ReviewScreen} />
 
            <Route exact path='/wishlist/:id?' component={WishlistScreen} />
 

@@ -91,6 +91,9 @@ const BookScreen = ({ match, history }) => {
     //add parameter and concatinate to push path after "...wishlist/"
   };
 
+  const createReviewHandler = () =>{
+    history.push('/book/:id/review');
+  }
 
 
   const publisher = ((book || {}).publishingInfo || {}).publisher;
@@ -167,7 +170,9 @@ const BookScreen = ({ match, history }) => {
                       <button type="info__button" onClick={addToWishlistHandler}>
                         Add to Wishlist
                 </button>
-
+                <button type="info__button" onClick = {createReviewHandler}>
+                        Create a Review!
+                </button>
                       {/* change button to selector */}
                       <MessageDialog
                         messageDialog={messageDialog}

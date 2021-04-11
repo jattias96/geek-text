@@ -1,0 +1,19 @@
+[
+    {
+      "id": 1,
+      "commenter": "Azhar",
+      "title": "I love this so much",
+      "rating": 5,
+      "content": "BLEEP BEEP BOOP HEHEHE",
+      "anonymous": false
+    },
+    {
+      "id": 2,
+      "commenter": "This shit is kinda fun",
+      "title": "Ba;slkdfj a;sldjkf",
+      "rating": 2,
+      "content": "I love myself!!",
+      "anonymous": true
+    }
+  ]
+  
